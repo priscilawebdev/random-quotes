@@ -1,0 +1,8 @@
+### JS ###
+coverage/
+node_modules/
+dist/
+*.log
+
+### Intellij ###
+.idea/

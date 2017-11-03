@@ -1,0 +1,36 @@
+{
+	"presets": [
+		[
+			"env",
+			{
+				"modules": false
+			}
+		],
+		"react",
+		"stage-0"
+	],
+	"plugins": [
+		"transform-object-rest-spread",
+		[
+			"module-resolver",
+			{
+				"root": [
+					"./"
+				],
+				"alias": {
+					"components": "./src/components",
+					"containers": "./src/containers",
+					"ducks": "./src/ducks",
+					"sagas": "./src/sagas"
+				}
+			}
+		]
+	],
+	"env": {
+		"production": {
+			"only": [
+				"src"
+			]
+		}
+	}
+}
