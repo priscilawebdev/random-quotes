@@ -1,4 +1,4 @@
+/* eslint-disable no-console */
 const chalk = require('chalk')
-const log = console.log
 
-log(chalk.green('Starting app in dev mode...'))
+console.log(chalk.green('Starting app in dev mode...'))

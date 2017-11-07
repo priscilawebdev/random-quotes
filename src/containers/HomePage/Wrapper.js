@@ -9,10 +9,9 @@ const Background = glamorous.div({
 	backgroundRepeat: 'no-repeat',
 	backgroundSize: 'cover',
 	backgroundPosition: 'center center',
-	height: '100%',
+	minHeight: '100vh',
 	display: 'flex',
-	flexDirection: 'column',
-	padding: 16
+	flexDirection: 'column'
 }, props => ({
 	backgroundImage: props.background ? `url(${props.background.url})` : 'none'
 }))

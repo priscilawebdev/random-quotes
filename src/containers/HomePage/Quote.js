@@ -28,8 +28,8 @@ const Div = glamorous.div({
 	textAlign: 'center',
 	fontSize: '1.7em',
 	transition: 'all .35s ease',
-	width: '100%',
 	bottom: '40px',
+	padding: 15,
 	':hover': {
 		[`& .${Author.className}`]: {
 			opacity: 1

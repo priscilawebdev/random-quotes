@@ -13,7 +13,7 @@ const H2 = glamorous.h2({
 	padding: 0,
 	margin: 0,
 	color: '#fff',
-	fontSize: '2em',
+	fontSize: '3em',
 	fontWeight: 500,
 	textTransform: 'lowercase',
 	':first-letter': {

@@ -10,10 +10,11 @@ module.exports = merge(common, {
 	// Don't use hashes in dev mode for better performance
 	output: {
 		filename: '[name].js',
-		chunkFilename: '[name].chunk.js',
+		chunkFilename: '[name].chunk.js'
 	},
 	devServer: {
 		contentBase: path.join(__dirname, 'public'),
+		historyApiFallback: true,
 		compress: true,
 		port: 8080
 	},
