@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { actions } from 'ducks/app'
 
+import Grid from 'components/Grid'
+import GridCell from 'components/GridCell'
 import Moment from './Moment'
 import Wrapper from './Wrapper'
 import Quote from './Quote'
+import Preferences from './Preferences'
 
 class HomePage extends Component {
 
@@ -20,7 +23,17 @@ class HomePage extends Component {
 			backgrounds && quotes && (
 				<Wrapper backgrounds={backgrounds}>
 					<Moment />
-					<Quote quotes={quotes} />
+					<Grid align='bottom'>
+						<GridCell alignSelf='middle'>
+							<Preferences
+								quotes={quotes}
+								backgrounds={backgrounds}
+							/>
+						</GridCell>
+						<GridCell justifySelf='center' alignSelf='middle'>
+							<Quote quotes={quotes} />
+						</GridCell>
+					</Grid>
 				</Wrapper>
 			)
 		)

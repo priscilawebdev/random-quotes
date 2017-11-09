@@ -9,37 +9,45 @@ import { actions } from 'ducks/app'
 import messages from './messages'
 
 const authorClassName = 'author'
-const Author = glamorous.span(authorClassName, {
-	width: '100%',
-	fontFamily: 'Roboto',
-	textAlign: 'center',
-	fontSize: '0.5em',
+const Author = glamorous.div(authorClassName, {
 	position: 'absolute',
 	right: 0,
+	top: 0,
 	left: 0,
-	opacity: 0,
-	bottom: '-20px',
-	transition: 'all .35s ease'
+	opacity: 0
 })
 Author.className = authorClassName
 
-const Div = glamorous.div({
-	position: 'relative',
-	textAlign: 'center',
+const descriptionClassName = 'quoteDescription'
+const Description = glamorous.div(descriptionClassName, {
 	fontSize: '1.7em',
-	transition: 'all .35s ease',
-	bottom: '40px',
-	padding: 15,
-	':hover': {
-		[`& .${Author.className}`]: {
-			opacity: 1
-		}
-	}
+	lineHeight: '30px',
+	transition: 'all .35s ease'
 })
+Description.className = descriptionClassName
 
 const Name = glamorous.span({
-	marginRight: '10px',
+	fontFamily: 'Roboto',
 	textTransform: 'capitalize'
+})
+
+const Wrapper = glamorous.div({
+	position: 'relative',
+	textAlign: 'center',
+	display: 'flex',
+	alignItems: 'center',
+	minHeight: 57,
+	transition: 'all .35s ease',
+	cursor: 'auto',
+	':hover': {
+		[`& .${Author.className}`]: {
+			opacity: 1,
+			transform: 'translateY(22px)'
+		},
+		[`& .${Description.className}`]: {
+			transform: 'translateY(-22px)'
+		}
+	}
 })
 
 class Quote extends Component {
@@ -67,13 +75,15 @@ class Quote extends Component {
 		const { quote } = this.props
 		return (
 			quote && (
-				<Div>
-					<FormattedMessage {...messages.quote} values={{ quote: quote.description }} />
+				<Wrapper>
+					<Description>
+						<FormattedMessage {...messages.quote} values={{ quote: quote.description }} />
+					</Description>
 					<Author>
-						<Name>{quote.author.toString().toLowerCase()}</Name>
-						<Heart full={quote.like} onClick={() => this.handleUpdateQuote({ ...quote, like: !quote.like })} />
+						<Name>{quote.author}</Name>
+						<Heart full={quote.like} margin='0 0 0 7px' />
 					</Author>
-				</Div>
+				</Wrapper>
 			)
 		)
 	}

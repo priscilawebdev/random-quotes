@@ -9,10 +9,11 @@ const Heart = glamorous.span({
 	width: '14',
 	display: 'inline-block',
 	position: 'absolute',
-	top: 2,
 	cursor: 'pointer'
-}, ({ full = false }) => ({
-	backgroundImage: `url(${full ? imgHeart : imgHeartEmpty})`
+}, ({ full = false, margin = 0, top = 4 }) => ({
+	backgroundImage: `url(${full ? imgHeart : imgHeartEmpty})`,
+	margin,
+	top
 }))
 
 Heart.propTypes = {

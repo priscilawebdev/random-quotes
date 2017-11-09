@@ -17,7 +17,7 @@ function* signOut() {
 	try {
 		const data = yield call(reduxSagaFirebase.auth.signOut)
 		yield put(actions.signOutFulFilled(data))
-		yield history.replace('/sign-in')
+		yield history.replace('/login')
 	}	catch (error) {
 		yield put(actions.signOutFailed(error))
 	}
