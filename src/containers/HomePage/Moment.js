@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import glamorous from 'glamorous'
 import PropTypes from 'prop-types'
 
 import { mediaQueries } from '../../style-utils'
-import Greetings from './Greetings'
 
 const Div = glamorous.div({
 	flex: '1 0 auto',
@@ -29,47 +28,16 @@ const H1 = glamorous.h1({
 	}
 })
 
-class Moment extends Component {
-	constructor(props) {
-		super(props)
-		this.state = { date: new Date() }
-	}
-
-	componentDidMount() {
-		this.intervalID = setInterval(
-			() => this.tick(),
-			1000
-		)
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.intervalID)
-	}
-
-	tick() {
-		this.setState({
-			date: new Date()
-		})
-	}
-
-	leadingZero(value) {
-		return value.toString().replace(/^([0-9])$/, '0$1')
-	}
-
-	render({ greetings = true } = {}) {
-		return (
-			<Div>
-				<H1>{`${this.leadingZero(this.state.date.getHours())}:${this.leadingZero(this.state.date.getMinutes())}`}</H1>
-				{ greetings && (
-					<Greetings hour={this.state.date.getHours()} />
-				)}
-			</Div>
-		)
-	}
-}
+const Moment = ({ dateTime, children }) => (
+	<Div>
+		<H1>{dateTime}</H1>
+		{children}
+	</Div>
+)
 
 Moment.propTypes = {
-	greetings: PropTypes.bool
+	children: PropTypes.node,
+	dateTime: PropTypes.string.isRequired
 }
 
 export default Moment

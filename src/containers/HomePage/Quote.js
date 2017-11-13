@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
 import glamorous from 'glamorous'
@@ -50,15 +50,21 @@ const Wrapper = glamorous.div({
 	}
 })
 
-class Quote extends Component {
+class Quote extends PureComponent {
 
 	componentDidMount() {
 		this.getQuote()
 	}
 
-	getQuote() {
+	componentWillReceiveProps(newProps) {
+		if (this.props.hours !== newProps.hours) {
+			this.getQuote(newProps.hours)
+		}
+	}
+
+	getQuote(hours) {
 		const { quotes, quote } = this.props
-		if (!quote) {
+		if (!quote || hours === 24) { // new day => new quote
 			const sortQuotes = quotes.sort((a, b) => a.vcount - b.vcount) // Sort quotes according to vcount (number of visualizations)
 			const slicedQuotes = sortQuotes.slice(0, 5) // get the first 5 quotes
 			const chosenQuote = slicedQuotes[Math.floor(Math.random() * slicedQuotes.length)] // return the randomly chosen quote
@@ -77,7 +83,10 @@ class Quote extends Component {
 			quote && (
 				<Wrapper>
 					<Description>
-						<FormattedMessage {...messages.quote} values={{ quote: quote.description }} />
+						<FormattedMessage
+							{...messages.quote}
+							values={{ quote: quote.description }}
+						/>
 					</Description>
 					<Author>
 						<Name>{quote.author}</Name>
@@ -92,6 +101,7 @@ class Quote extends Component {
 Quote.propTypes = {
 	handleUpdateQuote: PropTypes.func.isRequired,
 	quotes: PropTypes.array.isRequired,
+	hours: PropTypes.number.isRequired,
 	quote: PropTypes.object
 }
 

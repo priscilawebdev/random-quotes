@@ -22,9 +22,15 @@ class Wrapper extends Component {
 		this.getBackground()
 	}
 
-	getBackground() {
+	componentWillReceiveProps(newProps) {
+		if (this.props.hours !== newProps.hours) {
+			this.getBackground(newProps.hours)
+		}
+	}
+
+	getBackground(hours) {
 		const { backgrounds, background } = this.props
-		 if (!background) {
+		 if (!background || hours === 24) { // new day => new background
 			 const sortBackgrounds = backgrounds.sort((a, b) => a.vcount - b.vcount) // Sort backgrounds according to vcount (number of visualizations)
 			 const slicedBackgrounds = sortBackgrounds.slice(0, 5) // get the first 5 backgrounds
 			 const chosenBackground = slicedBackgrounds[Math.floor(Math.random() * slicedBackgrounds.length)] // return the randomly chosen background
@@ -51,6 +57,7 @@ Wrapper.propTypes = {
 	handleUpdateBackground: PropTypes.func.isRequired,
 	children: PropTypes.node.isRequired,
 	backgrounds: PropTypes.array.isRequired,
+	hours: PropTypes.number.isRequired,
 	background: PropTypes.object
 }
 

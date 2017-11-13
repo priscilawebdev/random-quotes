@@ -45,7 +45,6 @@ const IconContainer = glamorous.div({
 	transform: rotate ? 'rotate(38deg) scale(1.1)' : 'none'
 }))
 
-
 class Preferences extends Component {
 	constructor(props) {
 		super(props)
@@ -62,8 +61,6 @@ class Preferences extends Component {
 	}
 
 	render() {
-		const { quotes, backgrounds } = this.props
-		console.log(quotes, backgrounds)
 		const { showSettings } = this.state
 		return (
 			<div>
