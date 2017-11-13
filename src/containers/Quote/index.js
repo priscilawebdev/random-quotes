@@ -1,57 +1,13 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
-import glamorous from 'glamorous'
 import { connect } from 'react-redux'
 
-import Heart from 'components/Heart'
 import { actions } from 'ducks/app'
 import messages from './messages'
+import { Author, Name, Description, Inner, Wrapper, P, Img } from './styles'
 
-const authorClassName = 'author'
-const Author = glamorous.div(authorClassName, {
-	position: 'absolute',
-	right: 0,
-	top: 0,
-	left: 0,
-	opacity: 0
-})
-Author.className = authorClassName
-
-const descriptionClassName = 'quoteDescription'
-const Description = glamorous.div(descriptionClassName, {
-	fontSize: '1.7em',
-	lineHeight: '30px',
-	transition: 'all .35s ease'
-})
-Description.className = descriptionClassName
-
-const Name = glamorous.span({
-	fontFamily: 'Roboto',
-	textTransform: 'capitalize'
-})
-
-const Wrapper = glamorous.div({
-	position: 'relative',
-	textAlign: 'center',
-	display: 'flex',
-	alignItems: 'center',
-	minHeight: 57,
-	transition: 'all .35s ease',
-	cursor: 'auto',
-	':hover': {
-		[`& .${Author.className}`]: {
-			opacity: 1,
-			transform: 'translateY(22px)'
-		},
-		[`& .${Description.className}`]: {
-			transform: 'translateY(-22px)'
-		}
-	}
-})
-
-class Quote extends PureComponent {
-
+class Quote extends Component {
 	componentDidMount() {
 		this.getQuote()
 	}
@@ -82,16 +38,20 @@ class Quote extends PureComponent {
 		return (
 			quote && (
 				<Wrapper>
-					<Description>
-						<FormattedMessage
-							{...messages.quote}
-							values={{ quote: quote.description }}
-						/>
-					</Description>
-					<Author>
-						<Name>{quote.author}</Name>
-						<Heart full={quote.like} margin='0 0 0 7px' />
-					</Author>
+					<Inner>
+						<P>
+							<Description>
+								<FormattedMessage
+									{...messages.quote}
+									values={{ quote: quote.description }}
+								/>
+							</Description>
+							<Author>
+								<Name>{quote.author.toLowerCase()}</Name>
+								<Img full={quote.like} onClick={() => this.handleUpdateQuote({ ...quote, like: !quote.like })} />
+							</Author>
+						</P>
+					</Inner>
 				</Wrapper>
 			)
 		)

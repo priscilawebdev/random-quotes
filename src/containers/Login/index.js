@@ -9,13 +9,8 @@ import VisibilityOff from 'material-ui/svg-icons/action/visibility-off'
 import { actions } from 'ducks/auth'
 import TxtField from 'components/Txtfield'
 import messages from './messages'
-import Title from './Title'
-import Wrapper from './Wrapper'
-import Form from './Form'
-import Button from './Button'
-import CheckBoxField from './CheckBoxField'
-import PasswordWrapper from './PasswordWrapper'
 import validate from './validate'
+import { Form, PasswordWrapper, Title, Wrapper, CheckBoxField, Button } from './styles'
 
 class Login extends Component {
 	constructor(props) {
@@ -43,7 +38,7 @@ class Login extends Component {
 		const { showPassword } = this.state
 		return (
 			<Wrapper>
-				<Title>{intl.formatMessage(messages.into, { login: messages.login.defaultMessage })}</Title>
+				<Title>{intl.formatMessage(messages.login)}</Title>
 				<Form onSubmit={handleSubmit(this.handleLogin)}>
 					<Field
 						name='email'

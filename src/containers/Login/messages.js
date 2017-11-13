@@ -1,10 +1,6 @@
 import { defineMessages } from 'react-intl'
 
 export default defineMessages({
-	into: {
-		id: 'random-quotes.containers.Login.into',
-		defaultMessage: '{login} in Random Quotes'
-	},
 	login: {
 		id: 'random-quotes.containers.Login.login',
 		defaultMessage: 'Login'

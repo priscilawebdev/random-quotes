@@ -17,6 +17,7 @@ const alignMap = {
 const Grid = glamorous.div(({
 	align = 'left',
 	justify = 'top',
+	fullHeight = false,
 	columns = false,
 	inline = false,
 	multiline = false,
@@ -28,6 +29,7 @@ const Grid = glamorous.div(({
 	justifyContent: justifyMap[justify],
 	flexDirection: columns ? 'column' : 'row',
 	flexWrap: multiline ? 'wrap' : 'nowrap',
+	minHeight: fullHeight ? '100vh' : 0,
 	padding,
 	margin
 }))

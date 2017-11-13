@@ -3,17 +3,15 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { actions } from 'ducks/app'
-import Grid from 'components/Grid'
-import GridCell from 'components/GridCell'
-import Moment from './Moment'
-import Wrapper from './Wrapper'
-import Quote from './Quote'
-import Preferences from './Preferences'
-import Greetings from './Greetings'
+import Greetings from 'components/Greetings'
+import Quote from 'containers/Quote'
+import Preferences from 'containers/Preferences'
+import Background from 'containers/Background'
+import { H1, H2, Moment } from './styles'
 
 class HomePage extends Component {
-	constructor(props) {
-		super(props)
+	constructor() {
+		super()
 		this.state = { date: new Date() }
 	}
 
@@ -45,23 +43,14 @@ class HomePage extends Component {
 		const { date } = this.state
 		return (
 			backgrounds && quotes && (
-				<Wrapper backgrounds={backgrounds} hours={date.getMinutes()}>
-					<Moment dateTime={`${this.leadingZero(date.getHours())}:${this.leadingZero(date.getMinutes())}`}>
-						<Greetings hour={date.getHours()} />
+				<Background backgrounds={backgrounds} hours={date.getHours()}>
+					<Moment>
+						<H1>{`${this.leadingZero(date.getHours())}:${this.leadingZero(date.getMinutes())}`}</H1>
+						<H2><Greetings hour={date.getHours()} /></H2>
 					</Moment>
-					<Grid align='bottom'>
-						<GridCell alignSelf='middle'>
-							<Preferences
-								quotes={quotes}
-								backgrounds={backgrounds}
-								hours={date.getHours()}
-							/>
-						</GridCell>
-						<GridCell justifySelf='center' alignSelf='middle'>
-							<Quote quotes={quotes} hours={date.getHours()} />
-						</GridCell>
-					</Grid>
-				</Wrapper>
+					<Preferences backgrounds={backgrounds} quotes={quotes} />
+					<Quote quotes={quotes} hours={date.getHours()} />
+				</Background>
 			)
 		)
 	}
