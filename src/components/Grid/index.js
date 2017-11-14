@@ -14,6 +14,7 @@ const alignMap = {
 	bottom: 'flex-end',
 }
 
+
 const Grid = glamorous.div(({
 	align = 'left',
 	justify = 'top',

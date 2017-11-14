@@ -44,15 +44,16 @@ const Panel = glamorous.div({
 
 const IconContainer = glamorous.span({
 	transition: 'transform .1s ease-in-out',
-	width: 20,
-	height: 20,
-	opacity: '0.5',
+	opacity: 0.5,
 	cursor: 'pointer',
 	':hover': {
 		opacity: 1
 	},
-}, ({ rotate }) => ({
-	transform: rotate ? 'rotate(46deg) scale(1.1)' : 'none'
+}, ({ display = 'block', rotate, size }) => ({
+	transform: rotate ? 'rotate(46deg) scale(1.1)' : 'none',
+	width: size,
+	height: size,
+	display
 }))
 
 const Wrapper = glamorous.div(() => {
@@ -69,19 +70,44 @@ const Wrapper = glamorous.div(() => {
 	})
 })
 
-const Img = glamorous.span({
-	height: '70',
-	width: '100',
+const Img = glamorous.div({
 	backgroundRepeat: 'no-repeat',
-	backgroundSize: 'cover'
+	backgroundSize: 'cover',
+	width: '100%',
+	height: '100%'
 }, ({ url }) => ({
 	backgroundImage: `url(${url})`
 }))
+
+const Actions = glamorous.div({
+	position: 'absolute',
+	left: 11,
+	right: 0,
+	bottom: 0,
+	opacity: 0.4,
+	height: '30%',
+	background: '#000000',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'flex-end'
+})
+
+const Divider = glamorous.hr({
+	border: 'none',
+	backgroundColor: '#E0E0E0'
+}, ({ vertical = false, size = 2 }) => ({
+	margin: vertical ? 0 : '-1px 0px 0px',
+	height: vertical ? '100%' : size,
+	width: size
+}))
+
 
 export {
 	Wrapper,
 	Settings,
 	Panel,
 	IconContainer,
-	Img
+	Img,
+	Divider,
+	Actions
 }

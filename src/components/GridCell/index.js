@@ -45,13 +45,23 @@ const GridCell = glamorous.div(({
 	justifySelf,
 	grow = 0,
 	shrink = 1,
-	basis
+	basis,
+	height = 'auto',
+	width = 'auto',
+	padding = 0,
+	position = 'static',
+	cursor,
 }) => ({
 	alignItems: alignMap[align],
 	justifyContent: justifyMap[justify],
 	flex: `${grow} ${shrink} ${basis ? `${basis}%` : 'auto'}`,
 	...alignSelfMap[alignSelf],
-	...justifySelfMap[justifySelf]
+	...justifySelfMap[justifySelf],
+	width,
+	height,
+	padding,
+	position,
+	cursor
 }))
 
 export default GridCell

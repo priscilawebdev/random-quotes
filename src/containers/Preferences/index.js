@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
-import { intlShape, injectIntl } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import glamorous from 'glamorous'
-import RaisedButton from 'material-ui/RaisedButton'
-import { List, ListItem } from 'material-ui/List'
 
 import Login from 'containers/Login'
-import { IconContainer, Settings, Panel, Wrapper, Img } from './styles'
-import ImgSettings from './img/settings.svg'
-import messages from './messages'
+import Grid from 'components/Grid'
+import GridCell from 'components/GridCell'
+import Icon from 'components/Icon'
+import { Settings, Wrapper, Panel } from './styles'
+import Header from './Header'
+import Content from './Content'
 
 class Preferences extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { showSettings: false }
+		this.state = { showSettings: false, showQuotes: true }
 		this.setShowSettings = ::this.setShowSettings
+		this.setShowQuotes = ::this.setShowQuotes
 	}
 
 	setShowSettings() {
@@ -24,41 +24,38 @@ class Preferences extends Component {
 		})
 	}
 
+	setShowQuotes(bool) {
+		this.setState({
+			showQuotes: bool
+		})
+	}
+
 	render() {
-		const { authenticated, backgrounds, intl } = this.props
-		const { showSettings } = this.state
+		const { authenticated, backgrounds, quotes } = this.props
+		const { showSettings, showQuotes } = this.state
 		return (
 			<Wrapper>
-				<IconContainer rotate={showSettings}>
-					<glamorous.Img name='settings' src={ImgSettings} onClick={this.setShowSettings} />
-				</IconContainer>
+				<Icon name='settings' size={20} cursor='pointer' onClick={this.setShowSettings} />
 				<Settings opacity={showSettings}>
 					<Panel authenticated={!authenticated}>
-						{ !authenticated ? (
-							<glamorous.Div>
-								<glamorous.Div float='left' style={{ width: 'calc(50% - 1px)' }}>
-									<RaisedButton
-										label={intl.formatMessage(messages.photos)}
-										fullWidth
-									/>
-								</glamorous.Div>
-								<glamorous.Div float='right' style={{ width: 'calc(50% - 1px)' }}>
-									<RaisedButton
-										label={intl.formatMessage(messages.quotes)}
-										fullWidth
-									/>
-								</glamorous.Div>
-								<ul>
-									{
-										backgrounds.map(background => (
-											<li key={background.key}>
-												<Img url={background.url} />
-											</li>
-										))
-									}
-								</ul>
-							</glamorous.Div>
-						) : (<Login />) }
+						{
+							!authenticated ? (
+								<Grid columns>
+									<GridCell>
+										<Header setShowQuotes={this.setShowQuotes} />
+									</GridCell>
+									<GridCell>
+										<Content
+											backgrounds={backgrounds}
+											quotes={quotes}
+											showQuotes={showQuotes}
+										/>
+									</GridCell>
+								</Grid>
+							) : (
+								<Login />
+							)
+						}
 					</Panel>
 				</Settings>
 			</Wrapper>
@@ -69,11 +66,11 @@ class Preferences extends Component {
 Preferences.propTypes = {
 	authenticated: PropTypes.bool.isRequired,
 	backgrounds: PropTypes.array.isRequired,
-	intl: intlShape
+	quotes: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
 	...state.auth
 })
 
-export default connect(mapStateToProps)(injectIntl(Preferences))
+export default connect(mapStateToProps)(Preferences)
