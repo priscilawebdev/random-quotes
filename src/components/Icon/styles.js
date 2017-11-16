@@ -1,13 +1,20 @@
 import glamorous from 'glamorous'
 
 const Wrapper = glamorous.div({
-	fontSize: 0,
-	display: 'table'
-}, ({ size = '100%', cursor }) => ({
-	width: size,
-	height: size,
-	cursor
-}))
+	transition: 'all .3s ease-in-out',
+	fontSize: 0
+}, ({ cursor, sm, md, lg, customSize, rotate46, name }) => {
+	const size = getSize(sm, md, lg, customSize)
+	return ({
+		transform: rotate46 ? 'rotate(46deg) scale(1.1)' : 'none',
+		opacity: name === 'settings' && !rotate46 ? 0.5 : 1,
+		cursor,
+		...size,
+		':hover': {
+			opacity: 1
+		}
+	})
+})
 
 const Img = glamorous.div({
 	backgroundRepeat: 'no-repeat',
@@ -18,26 +25,16 @@ const Img = glamorous.div({
 	height: fitHeight ? '100%' : 'auto'
 }))
 
-const Centered = glamorous.span({
-	display: 'table-cell',
-	verticalAlign: 'middle',
-	fontSize: 0,
-	transition: 'transform .1s ease-in-out'
-}, ({ sm, md, lg }) => {
-	console.log(...getSize(sm, md, lg))
-})
-
-const getSize = (sm, md, lg) => {
+const getSize = (sm, md, lg, customSize) => {
 	let result = { width: '100%', height: '100%' }
 	if (sm) { result = { width: 18, height: 18 } }
 	if (md) { result = { width: 24, height: 24 } }
 	if (lg) { result = { width: 32, height: 32 } }
-	console.log(result)
+	if (customSize) { result = { width: customSize, height: customSize } }
 	return result
 }
 
 export {
 	Wrapper,
-	Centered,
 	Img
 }

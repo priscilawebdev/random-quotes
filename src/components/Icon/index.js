@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Wrapper, Img, Centered } from './styles'
+import { Wrapper, Img } from './styles'
 
 const iconNames = [
 	'garbage',
@@ -26,20 +26,18 @@ export const icons = iconNames.reduce((acc, curr) => ({
 const Icon = ({
 	name,
 	sm,
-	size,
+	md,
+	lg,
+	customSize,
 	fitHeight = true,
+	rotate46 = false,
 	cursor = 'auto',
 	onClick
-} = {}) => {
-	console.log(size)
-	return (
-		<Wrapper size={size} cursor={cursor} onClick={onClick}>
-			<Centered sm={sm}>
-				<Img url={icons[name]} fitHeight={fitHeight} alt={icons[name]} />
-			</Centered>
-		</Wrapper>
-	)
-}
+} = {}) => (
+	<Wrapper {...{ sm, md, lg, cursor, customSize, rotate46, name }} onClick={onClick}>
+		<Img url={icons[name]} fitHeight={fitHeight} alt={icons[name]} />
+	</Wrapper>
+)
 
 Icon.propTypes = {
 	name: PropTypes.oneOf(iconNames).isRequired,
@@ -50,7 +48,7 @@ Icon.propTypes = {
 	lg: PropTypes.bool,
 	rotate46: PropTypes.bool,
 	fitHeight: PropTypes.bool,
-	size: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+	customSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }
 
 export default Icon

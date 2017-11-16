@@ -24,6 +24,20 @@ export default function reducer(state = initialState, { type, payload }) {
 				...state,
 				quote: payload.quote
 			}
+		case actions.DELETE_DATA_FULFILLED:
+			{
+				const newState = payload.path === 'backgrounds' ? ({
+					backgrounds: state.data.backgrounds.filter(item => item.key !== payload.key),
+					quotes: state.data.quotes
+				}) : ({
+					quotes: state.data.quotes.filter(item => item.key !== payload.key),
+					backgrounds: state.data.backgrounds
+				})
+				return ({
+					...state,
+					data: { ...newState }
+				})
+			}
 		default:
 			return state
 	}
@@ -41,6 +55,10 @@ export const actions = {
 	UPDATE_QUOTE: 'random-quotes/app/UPDATE_QUOTE',
 	UPDATE_QUOTE_FULFILLED: 'random-quotes/app/UPDATE_QUOTE_FULFILLED',
 	UPDATE_QUOTE_FAILED: 'random-quotes/app/UPDATE_QUOTE_FAILED',
+
+	DELETE_DATA: 'random-quotes/app/DELETE_DATA',
+	DELETE_DATA_FULFILLED: 'random-quotes/app/DELETE_DATA_FULFILLED',
+	DELETE_DATA_FAILED: 'random-quotes/app/DELETE_DATA_FAILED',
 
 	DEFAULT_LOCALE: 'en',
 
@@ -79,6 +97,19 @@ export const actions = {
 	}),
 	updateQuoteFailed: error => ({
 		type: actions.UPDATE_QUOTE_FAILED,
+		payload: { error }
+	}),
+
+	deleteData: (path, data) => ({
+		type: actions.DELETE_DATA,
+		payload: { path, data }
+	}),
+	deleteDataFulFilled: (path, key) => ({
+		type: actions.DELETE_DATA_FULFILLED,
+		payload: { path, key }
+	}),
+	deleteDataFailed: error => ({
+		type: actions.DELETE_DATA_FAILED,
 		payload: { error }
 	})
 }

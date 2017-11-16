@@ -8,5 +8,9 @@ export default defineMessages({
 	quotes: {
 		id: 'random-quotes.containers.Preferences.quotes',
 		defaultMessage: 'Quotes'
+	},
+	delete: {
+		id: 'random-quotes.containers.Preferences.delete',
+		defaultMessage: 'Delete'
 	}
 })

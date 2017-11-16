@@ -30,7 +30,10 @@ export const objectToArray = (objects) => {
 
 function* updateBackground(changes) {
 	try {
-		yield call(reduxSagaFirebase.database.update, `backgrounds/${changes.key}`, changes)
+		const newVals = changes
+		const key = newVals.key
+		delete newVals.key
+		yield call(reduxSagaFirebase.database.update, `backgrounds/${key}`, newVals)
 		yield put(actions.updateBackgroundFulFilled(changes))
 	} catch (error) {
 		yield put(actions.updateBackgroundFailed(error))
@@ -39,10 +42,25 @@ function* updateBackground(changes) {
 
 function* updateQuote(changes) {
 	try {
-		yield call(reduxSagaFirebase.database.update, `quotes/${changes.key}`, changes)
+		const newVals = changes
+		const key = newVals.key
+		delete newVals.key
+		yield call(reduxSagaFirebase.database.update, `quotes/${key}`, newVals)
 		yield put(actions.updateQuoteFulFilled(changes))
 	} catch (error) {
 		yield put(actions.updateQuoteFailed(error))
+	}
+}
+
+function* deleteData(path, { key, name }) {
+	try {
+		yield call(reduxSagaFirebase.database.delete, `${path}/${key}`)
+		if (name) {
+			yield call(reduxSagaFirebase.storage.deleteFile, `${path}/${name}`)
+		}
+		yield put(actions.deleteDataFulFilled(path, key))
+	} catch (error) {
+		yield put(actions.deleteDataFailed(error))
 	}
 }
 
@@ -64,11 +82,19 @@ function* watchUpdateQuote() {
 		yield fork(updateQuote, payload.changes)
 	}
 }
+
+function* watchDeleteData() {
+	while (true) {
+		const { payload } = yield take(actions.DELETE_DATA)
+		yield fork(deleteData, payload.path, payload.data)
+	}
+}
 //= ====================================
 //  APP SAGAS
 //-------------------------------------
 export const appSagas = [
 	takeLatest(actions.LOAD_DATA, getData),
 	fork(watchUpdateBackground),
-	fork(watchUpdateQuote)
+	fork(watchUpdateQuote),
+	fork(watchDeleteData)
 ]

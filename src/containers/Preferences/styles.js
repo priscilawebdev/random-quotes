@@ -11,7 +11,7 @@ const Settings = glamorous.div({
 	left: 3,
 	right: 0,
 	bottom: 'calc(50% + 20px)',
-	zIndex: 1000000,
+	zIndex: 999,
 	borderRadius: 7,
 	[mediaQueries.tablet]: {
 		width: 700
@@ -42,25 +42,11 @@ const Panel = glamorous.div({
 	}
 }))
 
-const IconContainer = glamorous.span({
-	transition: 'transform .1s ease-in-out',
-	opacity: 0.5,
-	cursor: 'pointer',
-	':hover': {
-		opacity: 1
-	},
-}, ({ display = 'block', rotate, size }) => ({
-	transform: rotate ? 'rotate(46deg) scale(1.1)' : 'none',
-	width: size,
-	height: size,
-	display
-}))
-
 const Wrapper = glamorous.div(() => {
 	const quoteHeight = document.getElementsByClassName('quoteWrapper')[0]
 	return ({
 		position: 'absolute',
-		bottom: 0,
+		bottom: 20,
 		left: 17,
 		right: 17,
 		paddingLeft: 16,
@@ -73,41 +59,16 @@ const Wrapper = glamorous.div(() => {
 const Img = glamorous.div({
 	backgroundRepeat: 'no-repeat',
 	backgroundSize: 'cover',
+	borderRadius: 2,
 	width: '100%',
 	height: '100%'
 }, ({ url }) => ({
 	backgroundImage: `url(${url})`
 }))
 
-const Actions = glamorous.div({
-	position: 'absolute',
-	left: 11,
-	right: 0,
-	bottom: 0,
-	opacity: 0.4,
-	height: '30%',
-	background: '#000000',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'flex-end'
-})
-
-const Divider = glamorous.hr({
-	border: 'none',
-	backgroundColor: '#E0E0E0'
-}, ({ vertical = false, size = 2 }) => ({
-	margin: vertical ? 0 : '-1px 0px 0px',
-	height: vertical ? '100%' : size,
-	width: size
-}))
-
-
 export {
 	Wrapper,
 	Settings,
 	Panel,
-	IconContainer,
-	Img,
-	Divider,
-	Actions
+	Img
 }
