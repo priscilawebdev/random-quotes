@@ -1,28 +1,28 @@
 import { defineMessages } from 'react-intl'
 
 export default defineMessages({
-	login: {
-		id: 'random-quotes.containers.Login.login',
+	'randomQuotes.containers.login': {
+		id: 'randomQuotes.containers.login',
 		defaultMessage: 'Login'
 	},
-	username: {
-		id: 'random-quotes.containers.Login.username',
+	'randomQuotes.containers.login.username': {
+		id: 'randomQuotes.containers.login.username',
 		defaultMessage: 'Username'
 	},
-	password: {
-		id: 'random-quotes.containers.Login.password',
+	'randomQuotes.containers.login.password': {
+		id: 'randomQuotes.containers.login.password',
 		defaultMessage: 'Password'
 	},
-	required: {
-		id: 'random-quotes.containers.Login.required',
+	'randomQuotes.containers.login.required': {
+		id: 'randomQuotes.containers.login.required',
 		defaultMessage: 'This field is required'
 	},
-	invalid: {
-		id: 'random-quotes.containers.Login.invalid',
+	'randomQuotes.containers.login.invalid': {
+		id: 'randomQuotes.containers.login.invalid',
 		defaultMessage: '{what} is not valid'
 	},
-	email: {
-		id: 'random-quotes.containers.Login.email',
+	'randomQuotes.containers.login.email': {
+		id: 'randomQuotes.containers.login.email',
 		defaultMessage: 'Email'
 	}
 })

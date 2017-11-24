@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
-import { actions } from 'ducks/app'
+import { actions } from 'reducers/quotes'
 import messages from './messages'
 import { Author, Name, Description, Inner, Wrapper, P, Img } from './styles'
 
@@ -12,15 +11,9 @@ class Quote extends Component {
 		this.getQuote()
 	}
 
-	componentWillReceiveProps(newProps) {
-		if (this.props.hours !== newProps.hours) {
-			this.getQuote(newProps.hours)
-		}
-	}
-
-	getQuote(hours) {
+	getQuote() {
 		const { quotes, quote } = this.props
-		if (!quote || hours === 24) { // new day => new quote
+		if (Object.keys(quote).length === 0) {
 			const sortQuotes = quotes.sort((a, b) => a.vcount - b.vcount) // Sort quotes according to vcount (number of visualizations)
 			const slicedQuotes = sortQuotes.slice(0, 5) // get the first 5 quotes
 			const chosenQuote = slicedQuotes[Math.floor(Math.random() * slicedQuotes.length)] // return the randomly chosen quote
@@ -28,21 +21,21 @@ class Quote extends Component {
 		}
 	}
 
-	handleUpdateQuote(changes) {
-		const { handleUpdateQuote } = this.props
-		handleUpdateQuote(changes)
+	handleUpdateQuote(modifiedQuote) {
+		const { handleUpdate } = this.props
+		handleUpdate(modifiedQuote)
 	}
 
 	render() {
 		const { quote } = this.props
 		return (
-			quote && (
+			Object.keys(quote).length > 0 && (
 				<Wrapper>
 					<Inner>
 						<P>
 							<Description>
 								<FormattedMessage
-									{...messages.quote}
+									{...messages['randomQuotes.containers.quote']}
 									values={{ quote: quote.description }}
 								/>
 							</Description>
@@ -59,18 +52,17 @@ class Quote extends Component {
 }
 
 Quote.propTypes = {
-	handleUpdateQuote: PropTypes.func.isRequired,
+	handleUpdate: PropTypes.func.isRequired,
 	quotes: PropTypes.array.isRequired,
-	hours: PropTypes.number.isRequired,
 	quote: PropTypes.object
 }
 
 const mapStateToProps = state => ({
-	quote: state.app.quote
+	quote: state.quotes.quote
 })
 
 const mapDispatchToProps = {
-	handleUpdateQuote: actions.updateQuote
+	handleUpdate: actions.updateQuote
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quote)

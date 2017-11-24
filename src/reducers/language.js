@@ -1,7 +1,6 @@
-import { actions as appActions } from './app'
 
 const initialState = {
-	locale: appActions.DEFAULT_LOCALE
+	locale: 'en'
 }
 
 export default function reducer(state = initialState, { payload, type }) {
@@ -15,7 +14,6 @@ export default function reducer(state = initialState, { payload, type }) {
 
 export const actions = {
 	CHANGE_LOCALE: 'random-quotes/language/CHANGE_LOCALE',
-
 	changeLocale: locale => ({
 		type: actions.CHANGE_LOCALE,
 		payload: { locale }

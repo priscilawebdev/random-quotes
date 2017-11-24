@@ -20,7 +20,7 @@
 				"alias": {
 					"components": "./src/components",
 					"containers": "./src/containers",
-					"ducks": "./src/ducks",
+					"reducers": "./src/reducers",
 					"sagas": "./src/sagas"
 				}
 			}

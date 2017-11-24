@@ -14,8 +14,8 @@ const TxtField = ({ input, label, meta: { touched, error }, ...custom }) => (
 
 TxtField.propTypes = {
 	input: PropTypes.object.isRequired,
-	label: PropTypes.string.isRequired,
-	meta: PropTypes.object.isRequired
+	meta: PropTypes.object.isRequired,
+	label: PropTypes.string
 }
 
 export default TxtField

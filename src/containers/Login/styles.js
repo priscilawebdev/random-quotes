@@ -1,7 +1,6 @@
 import glamorous from 'glamorous'
 import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
-import { mediaQueries } from '../../style-utils'
 
 const Form = glamorous.form({
 	width: '403px',
@@ -13,13 +12,10 @@ const PasswordWrapper = glamorous.div({
 })
 
 const Title = glamorous.div({
-	fontSize: '1em',
+	fontSize: '3.5em',
 	width: '100%',
 	textAlign: 'center',
-	color: '#2f273c',
-	[mediaQueries.tablet]: {
-		fontSize: '3.5em'
-	}
+	color: '#2f273c'
 })
 
 const Wrapper = glamorous.div({

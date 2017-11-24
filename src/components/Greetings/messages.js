@@ -1,20 +1,20 @@
 import { defineMessages } from 'react-intl'
 
 export default defineMessages({
-	greetings: {
-		id: 'random-quotes.components.Greetings.greetings',
+	'randomQuotes.components.greetings': {
+		id: 'randomQuotes.components.greetings',
 		defaultMessage: 'Good {moment}'
 	},
-	morning: {
-		id: 'random-quotes.components.Greetings.morning',
+	'randomQuotes.components.greetings.morning': {
+		id: 'randomQuotes.components.greetings.morning',
 		defaultMessage: 'Morning'
 	},
-	afternoon: {
-		id: 'random-quotes.components.Greetings.afternoon',
+	'randomQuotes.components.greetings.afternoon': {
+		id: 'randomQuotes.components.greetings.afternoon',
 		defaultMessage: 'Afternoon'
 	},
-	evening: {
-		id: 'random-quotes.components.Greetings.evening',
+	'randomQuotes.components.greetings.evening': {
+		id: 'randomQuotes.components.greetings.evening',
 		defaultMessage: 'Evening'
 	}
 })

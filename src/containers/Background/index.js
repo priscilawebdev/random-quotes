@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
-import { actions } from 'ducks/app'
-import Wrapper from './styles'
+import { actions } from 'reducers/backgrounds'
+import { Wrapper } from './styles'
 
 class Background extends Component {
 
@@ -11,15 +10,9 @@ class Background extends Component {
 		this.getBackground()
 	}
 
-	componentWillReceiveProps(newProps) {
-		if (this.props.hours !== newProps.hours) {
-			this.getBackground(newProps.hours)
-		}
-	}
-
-	getBackground(hours) {
+	getBackground() {
 		const { backgrounds, background } = this.props
-		if (!background || hours === 24) { // new day => new background
+		if (Object.keys(background).length === 0) {
 			const sortBackgrounds = backgrounds.sort((a, b) => a.vcount - b.vcount) // Sort backgrounds according to vcount (number of visualizations)
 			const slicedBackgrounds = sortBackgrounds.slice(0, 5) // get the first 5 backgrounds
 			const chosenBackground = slicedBackgrounds[Math.floor(Math.random() * slicedBackgrounds.length)] // return the randomly chosen background
@@ -27,9 +20,9 @@ class Background extends Component {
 		}
 	}
 
-	handleUpdateBackground(changes) {
-		const { handleUpdateBackground } = this.props
-		handleUpdateBackground(changes)
+	handleUpdateBackground(modifiedBackground) {
+		const { handleUpdate } = this.props
+		handleUpdate(modifiedBackground)
 	}
 
 	render() {
@@ -43,19 +36,18 @@ class Background extends Component {
 }
 
 Background.propTypes = {
-	handleUpdateBackground: PropTypes.func.isRequired,
+	handleUpdate: PropTypes.func.isRequired,
 	children: PropTypes.node.isRequired,
 	backgrounds: PropTypes.array.isRequired,
-	hours: PropTypes.number.isRequired,
 	background: PropTypes.object
 }
 
 const mapStateToProps = state => ({
-	background: state.app.background
+	background: state.backgrounds.background
 })
 
 const mapDispatchToProps = {
-	handleUpdateBackground: actions.updateBackground
+	handleUpdate: actions.updateBackground
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Background)

@@ -1,50 +1,40 @@
-import { put, call, take, fork } from 'redux-saga/effects'
-import { actions } from 'ducks/auth'
+import { call, fork, put, take, takeEvery, all } from 'redux-saga/effects'
+import { actions } from 'reducers/auth'
 import reduxSagaFirebase from '../api'
-import history from '../history'
 
-function* signIn(email, password) {
+function* loginSaga({ credentials: { email, password } }) {
 	try {
-		const authData = yield call(reduxSagaFirebase.auth.signInWithEmailAndPassword, email, password)
-		yield put(actions.signInFulFilled(authData.data))
-		yield history.push('/')
-	}	catch (error) {
-		yield put(actions.signInFailed(error))
+		const data = yield call(reduxSagaFirebase.auth.signInWithEmailAndPassword, email, password)
+		yield put(actions.loginSuccess(data))
+	} catch (error) {
+		yield put(actions.loginFailure(error))
 	}
 }
 
-function* signOut() {
+function* logoutSaga() {
 	try {
 		const data = yield call(reduxSagaFirebase.auth.signOut)
-		yield put(actions.signOutFulFilled(data))
-		yield history.replace('/login')
-	}	catch (error) {
-		yield put(actions.signOutFailed(error))
+		yield put(actions.loginSuccess(data))
+	} catch (error) {
+		yield put(actions.loginFailure(error))
 	}
 }
 
-//= ====================================
-//  WATCHERS
-//-------------------------------------
+function* syncUserSaga() {
+	const channel = yield call(reduxSagaFirebase.auth.channel)
 
-function* watchSignIn() {
 	while (true) {
-		const { payload } = yield take(actions.SIGN_IN)
-		yield fork(signIn, payload.email, payload.password)
+		const { user } = yield take(channel)
+
+		if (user) yield put(actions.syncUser(user))
+		else yield put(actions.syncUser(null))
 	}
 }
 
-function* watchSignOut() {
-	while (true) {
-		yield take(actions.SIGN_OUT)
-		yield fork(signOut)
-	}
+export default function* rootSaga() {
+	yield fork(syncUserSaga)
+	yield all([
+		takeEvery(actions.LOGIN.REQUEST, loginSaga),
+		takeEvery(actions.LOGOUT.REQUEST, logoutSaga)
+	])
 }
-
-//= ====================================
-//  AUTH SAGAS
-//-------------------------------------
-export const authSagas = [
-	fork(watchSignIn),
-	fork(watchSignOut)
-]

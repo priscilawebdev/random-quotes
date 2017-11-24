@@ -7,13 +7,15 @@ import messages from './messages'
 const getGreetings = (currentHour) => {
 	let greetings
 	if (currentHour >= 0 && currentHour < 12) {
-		greetings = messages.morning
+		greetings = <FormattedMessage {...messages['randomQuotes.components.greetings.morning']} />
 	} else if (currentHour >= 12 && currentHour < 17) {
-		greetings = messages.afternoon
+		greetings = <FormattedMessage {...messages['randomQuotes.components.greetings.afternoon']} />
 	} else {
-		greetings = messages.evening
+		greetings = <FormattedMessage {...messages['randomQuotes.components.greetings.evening']} />
 	}
-	return <FormattedMessage {...messages.greetings} values={{ moment: greetings.defaultMessage }} />
+	return (
+		<FormattedMessage {...messages['randomQuotes.components.greetings']} values={{ moment: greetings }} />
+	)
 }
 
 const Greetings = ({ hour }) => getGreetings(hour)

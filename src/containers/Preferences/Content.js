@@ -26,11 +26,13 @@ const iconButtonElement = (
 
 const rightIconMenu = func => (
 	<IconMenu iconButtonElement={iconButtonElement}>
-		<MenuItem onClick={func}><FormattedMessage {...messages.delete} /></MenuItem>
+		<MenuItem onClick={func}>
+			<FormattedMessage {...messages['randomQuotes.containers.preferences.delete']} />
+		</MenuItem>
 	</IconMenu>
 )
 
-const Content = ({ showQuotes, quotes, backgrounds, deleteData }) => (
+const Content = ({ showQuotes, quotes, backgrounds, onDelete }) => (
 	showQuotes ? (
 		<GridList
 			style={{ maxHeight: 355, minHeight: 355, margin: 0 }}
@@ -41,7 +43,7 @@ const Content = ({ showQuotes, quotes, backgrounds, deleteData }) => (
 			<GridTile cols={1}>
 				<List style={{ paddingRight: 11, paddingLeft: 11, height: '100%', overflowY: 'auto' }}>
 					{	quotes.map(quote => (
-						<div key={quote.key}>
+						<div key={quote.id}>
 							<Divider />
 							<ListItem
 								primaryText={
@@ -52,7 +54,7 @@ const Content = ({ showQuotes, quotes, backgrounds, deleteData }) => (
 										</b>
 									</div>
 								}
-								rightIconButton={rightIconMenu(() => deleteData('quotes', quote))}
+								rightIconButton={rightIconMenu(() => onDelete(quote.id))}
 								style={{ color: white, fontSize: 13 }}
 							/>
 							<Divider />
@@ -69,14 +71,14 @@ const Content = ({ showQuotes, quotes, backgrounds, deleteData }) => (
 		>
 			{backgrounds.map(background => (
 				<GridTile
-					key={background.key}
+					key={background.id}
 					title={background.name}
 					actionIcon={
 						<Icon
 							name='garbage'
 							customSize={20}
 							cursor='pointer'
-							onClick={() => deleteData('backgrounds', background)}
+							onClick={() => onDelete(background.id)}
 						/>
 					}
 				>
@@ -90,7 +92,7 @@ const Content = ({ showQuotes, quotes, backgrounds, deleteData }) => (
 Content.propTypes = {
 	showQuotes: PropTypes.bool.isRequired,
 	backgrounds: PropTypes.array.isRequired,
-	deleteData: PropTypes.func.isRequired,
+	onDelete: PropTypes.func.isRequired,
 	quotes: PropTypes.array.isRequired
 }
 

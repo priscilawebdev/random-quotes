@@ -1,4 +1,5 @@
 import glamorous from 'glamorous'
+import RaisedButton from 'material-ui/RaisedButton'
 import { mediaQueries } from '../../style-utils'
 
 const Settings = glamorous.div({
@@ -66,9 +67,17 @@ const Img = glamorous.div({
 	backgroundImage: `url(${url})`
 }))
 
+const Button = glamorous(RaisedButton)({
+	marginTop: 20,
+	'& div > div': {
+		height: '50px !important'
+	}
+})
+
 export {
 	Wrapper,
 	Settings,
 	Panel,
-	Img
+	Img,
+	Button
 }

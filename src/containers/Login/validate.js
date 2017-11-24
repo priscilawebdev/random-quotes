@@ -8,11 +8,12 @@ const validate = (values) => {
 	const requiredFields = ['email', 'password']
 	requiredFields.forEach((field) => {
 		if (!values[field]) {
-			errors[field] = <FormattedMessage {...messages.required} />
+			errors[field] = <FormattedMessage {...messages['randomQuotes.containers.login.required']} />
 		}
 	})
 	if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-		errors.email = <FormattedMessage {...messages.invalid} values={{ what: messages.email.defaultMessage }} />
+		const email = <FormattedMessage {...messages['randomQuotes.containers.login.email']} />
+		errors.email = <FormattedMessage {...messages['randomQuotes.containers.login.invalid']} values={{ what: email }} />
 	}
 	return errors
 }

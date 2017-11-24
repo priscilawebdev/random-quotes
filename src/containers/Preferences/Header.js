@@ -6,7 +6,7 @@ import { GridList, GridTile } from 'material-ui/GridList'
 
 import messages from './messages'
 
-const Header = ({ intl, setShowQuotes }) => (
+const Header = ({ intl, handleShowQuotes }) => (
 	<GridList
 		cellHeight='auto'
 		cols={2}
@@ -21,16 +21,16 @@ const Header = ({ intl, setShowQuotes }) => (
 	>
 		<GridTile style={{ paddingRight: 1 }}>
 			<RaisedButton
-				label={intl.formatMessage(messages.photos)}
-				onClick={() => setShowQuotes(false)}
+				label={intl.formatMessage(messages['randomQuotes.containers.preferences.photos'])}
+				onClick={() => handleShowQuotes(false)}
 				buttonStyle={{ borderRadius: 0 }}
 				fullWidth
 			/>
 		</GridTile>
 		<GridTile style={{ paddingLeft: 1 }}>
 			<RaisedButton
-				label={intl.formatMessage(messages.quotes)}
-				onClick={() => setShowQuotes(true)}
+				label={intl.formatMessage(messages['randomQuotes.containers.preferences.quotes'])}
+				onClick={() => handleShowQuotes(true)}
 				buttonStyle={{ borderRadius: 0 }}
 				fullWidth
 			/>
@@ -39,7 +39,7 @@ const Header = ({ intl, setShowQuotes }) => (
 )
 
 Header.propTypes = {
-	setShowQuotes: PropTypes.func.isRequired,
+	handleShowQuotes: PropTypes.func.isRequired,
 	intl: intlShape
 }
 

@@ -1,7 +1,7 @@
 import glamorous from 'glamorous'
 import { mediaQueries } from '../../style-utils'
 
-const Moment = glamorous.div({
+const Wrapper = glamorous.div({
 	fontFamily: 'Roboto',
 	textAlign: 'center',
 	marginTop: 'auto',
@@ -37,5 +37,5 @@ const H2 = glamorous.h2({
 export {
 	H1,
 	H2,
-	Moment
+	Wrapper
 }

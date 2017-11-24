@@ -9,7 +9,8 @@ const iconNames = [
 	'heart',
 	'heart-empty',
 	'add',
-	'loading'
+	'loading',
+	'image'
 ]
 
 const cursorTypes = [

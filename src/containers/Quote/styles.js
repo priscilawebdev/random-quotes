@@ -1,4 +1,5 @@
 import glamorous from 'glamorous'
+import RaisedButton from 'material-ui/RaisedButton'
 import { mediaQueries } from '../../style-utils'
 import imgHeart from './img/icon-heart.svg'
 import imgHeartEmpty from './img/icon-heart-empty.svg'
@@ -77,6 +78,13 @@ const Img = glamorous.span({
 	backgroundImage: `url(${full ? imgHeart : imgHeartEmpty})`
 }))
 
+const Button = glamorous(RaisedButton)({
+	marginTop: 20,
+	'& div > div': {
+		height: '50px !important'
+	}
+})
+
 export {
 	Author,
 	Description,
@@ -84,5 +92,6 @@ export {
 	Inner,
 	Wrapper,
 	P,
-	Img
+	Img,
+	Button
 }
