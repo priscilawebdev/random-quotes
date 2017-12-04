@@ -1,14 +1,20 @@
-import { call, put, takeEvery, all, select } from 'redux-saga/effects'
+import { call, put, take, takeEvery, select, all } from 'redux-saga/effects'
 import { actions } from 'reducers/backgrounds'
+import { actions as actionsStorage } from 'reducers/storage'
 import reduxSagaFirebase from '../api'
 
-function* addBackground({ by, from, link }) {
-	const user = yield select(state => state.auth.user)
-	const url = yield select(state => state.auth.storage.url)
-
-	yield call(reduxSagaFirebase.database.create, 'backgrounds', {
-		creator: user ? user.uid : null, vcount: 0, url, by, from, link
-	})
+function* addBackground({ background: { file, from, by, link = null } }) {
+	try {
+		yield put(actionsStorage.setFile(file))
+		yield put(actionsStorage.sendFile(`backgrounds/${file.name}`))
+		const { url } = yield take(actionsStorage.SEND_FILE.SUCCESS)
+		const user = yield select(state => state.auth.user)
+		yield call(reduxSagaFirebase.database.create, 'backgrounds', {
+			creator: user ? user.uid : null, vcount: 0, url, from, by, link
+		})
+	} catch (err) {
+		console.log('error', err)
+	}
 }
 
 function* removeBackground({ id }) {

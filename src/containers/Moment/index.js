@@ -3,7 +3,11 @@ import Greetings from 'components/Greetings'
 import { Wrapper, H1, H2 } from './styles'
 
 export default class Moment extends Component {
-	state = { date: new Date() }
+
+	constructor() {
+		super()
+		this.state = { date: new Date() }
+	}
 
 	componentDidMount() {
 		this.intervalID = setInterval(

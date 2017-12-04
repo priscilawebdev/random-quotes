@@ -6,6 +6,13 @@ import { Wrapper } from './styles'
 
 class Background extends Component {
 
+	static propTypes = {
+		handleUpdate: PropTypes.func.isRequired,
+		children: PropTypes.node.isRequired,
+		backgrounds: PropTypes.array.isRequired,
+		background: PropTypes.object
+	}
+
 	componentDidMount() {
 		this.getBackground()
 	}
@@ -33,13 +40,6 @@ class Background extends Component {
 			</Wrapper>
 		)
 	}
-}
-
-Background.propTypes = {
-	handleUpdate: PropTypes.func.isRequired,
-	children: PropTypes.node.isRequired,
-	backgrounds: PropTypes.array.isRequired,
-	background: PropTypes.object
 }
 
 const mapStateToProps = state => ({

@@ -12,13 +12,13 @@ export default function reducer(state = initialState, { type, file, url, progres
 				...state,
 				file
 			}
-		case actions.SET_FILE_URL:
+		case actions.SEND_FILE.SUCCESS:
 			return {
 				...state,
 				loading: false,
 				url
 			}
-		case actions.SEND_FILE:
+		case actions.SEND_FILE.REQUEST:
 			return {
 				...state,
 				loading: true
@@ -34,7 +34,11 @@ export default function reducer(state = initialState, { type, file, url, progres
 }
 
 export const actions = {
-	SEND_FILE: 'SEND_FILE',
+	SEND_FILE: {
+		REQUEST: 'SEND_FILE.REQUEST',
+		SUCCESS: 'SEND_FILE.SUCCESS',
+		FAILURE: 'SEND_FILE.FAILURE'
+	},
 	SET_FILE: 'SET_FILE',
 	SET_FILE_URL: 'SET_FILE_URL',
 	SET_PROGRESS: 'SET_PROGRESS',
@@ -47,8 +51,12 @@ export const actions = {
 		url
 	}),
 	sendFile: path => ({
-		type: actions.SEND_FILE,
+		type: actions.SEND_FILE.REQUEST,
 		path
+	}),
+	sendFileSuccess: url => ({
+		type: actions.SEND_FILE.SUCCESS,
+		url
 	}),
 	setProgress: progress => ({
 		type: actions.SET_PROGRESS,

@@ -1,23 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import Moment from 'containers/Moment'
-import Background from 'containers/Background'
-import Quote from 'containers/Quote'
-import Preferences from 'containers/Preferences'
+import Loadable from 'react-loadable'
 
-const HomePage = ({ backgrounds, quotes }) => (
-	backgrounds.length > 0 && quotes.length > 0 && (
-		<Background {...{ backgrounds }}>
-			<Moment />
-			<Preferences {...{ backgrounds, quotes }} />
-			<Quote {...{ quotes }} />
-		</Background>
-	)
-)
+import Spinner from 'components/Spinner'
 
-const mapStateToProps = state => ({
-	backgrounds: state.backgrounds.list,
-	quotes: state.quotes.list
+export default Loadable({
+	loader: () => import('./HomePage'),
+	loading: Spinner
 })
-
-export default connect(mapStateToProps)(HomePage)

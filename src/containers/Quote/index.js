@@ -7,6 +7,13 @@ import messages from './messages'
 import { Author, Name, Description, Inner, Wrapper, P, Img } from './styles'
 
 class Quote extends Component {
+
+	static propTypes = {
+		handleUpdate: PropTypes.func.isRequired,
+		quotes: PropTypes.array.isRequired,
+		quote: PropTypes.object
+	}
+
 	componentDidMount() {
 		this.getQuote()
 	}
@@ -49,12 +56,6 @@ class Quote extends Component {
 			)
 		)
 	}
-}
-
-Quote.propTypes = {
-	handleUpdate: PropTypes.func.isRequired,
-	quotes: PropTypes.array.isRequired,
-	quote: PropTypes.object
 }
 
 const mapStateToProps = state => ({

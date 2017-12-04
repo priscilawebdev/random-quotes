@@ -17,8 +17,8 @@ const Settings = glamorous.div({
 	[mediaQueries.tablet]: {
 		width: 700
 	}
-}, ({ opacity }) => ({
-	opacity: opacity ? 1 : 0
+}, ({ display }) => ({
+	display: display ? 'block' : 'none'
 }))
 
 const Panel = glamorous.div({

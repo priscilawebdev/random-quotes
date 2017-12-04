@@ -6,9 +6,10 @@ import createHistory from 'history/createBrowserHistory'
 
 import LanguageProvider from 'containers/LanguageProvider'
 import App from 'containers/App'
-import store from './store'
+import configureStore from './store'
 
 const history = createHistory()
+const store = configureStore()
 const root = document.getElementById('root')
 
 const render = () => {

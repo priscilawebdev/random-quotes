@@ -1,33 +1,24 @@
-import { call, put, select, takeEvery, all } from 'redux-saga/effects'
-import { eventChannel, END } from 'redux-saga'
+import { select, all, takeEvery, put, take } from 'redux-saga/effects'
+import { eventChannel } from 'redux-saga'
 import { actions } from 'reducers/storage'
 import reduxSagaFirebase from '../api'
 
-function* syncFileUrl(path) {
+function* sendFile({ path }) {
 	try {
-		const url = yield call(reduxSagaFirebase.storage.getDownloadURL, path)
-		yield put(actions.setFileURL(url))
-	} catch (error) {
-		console.error(error)
+		const file = yield select(state => state.storage.file)
+		const task = reduxSagaFirebase.storage.uploadFile(path, file)
+		const channel = eventChannel(emit => task.on('state_changed', emit))
+		yield take(channel)
+		// Wait for upload to complete
+		yield task
+		yield put(actions.sendFileSuccess(task.snapshot.downloadURL))
+	} catch (err) {
+		console.log(err)
 	}
-}
-
-function* sendFileSaga({ path }) {
-	const file = yield select(state => state.storage.file)
-	const task = reduxSagaFirebase.storage.uploadFile(path, file)
-	const input = document.getElementById('TESTE')
-	task.on('state_changed', (snapshot) => {
-		input.css.width = (snapshot.bytesTransferred * 100) / snapshot.totalBytes
-	})
-
-	// Wait for upload to complete
-	yield task
-
-	// Do something on complete
 }
 
 export default function* rootSaga() {
 	yield all([
-		takeEvery(actions.SEND_FILE, sendFileSaga)
+		takeEvery(actions.SEND_FILE.REQUEST, sendFile)
 	])
 }

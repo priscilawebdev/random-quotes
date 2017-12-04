@@ -1,6 +1,6 @@
 import React from 'react'
 import { intlShape, injectIntl } from 'react-intl'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, reset as resetOnSubmit } from 'redux-form'
 import PropTypes from 'prop-types'
 import Dialog from 'material-ui/Dialog'
 import { GridList, GridTile } from 'material-ui/GridList'
@@ -11,19 +11,21 @@ import validate from './validate'
 
 const required = value => (value ? undefined : 'Required')
 
+const handleReset = (result, dispatch) => dispatch(resetOnSubmit('AddQuote'))
+
 const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, onRequestClose }) => (
 	<Dialog
 		title={intl.formatMessage(messages['randomQuotes.containers.quote.createQuote'])}
 		open={openDialog}
 		modal={false}
 		onRequestClose={() => {
-			onRequestClose(false)
+			onRequestClose()
 			reset()
 		}}
 		bodyStyle={{ overflow: 'inherit' }}
 		titleStyle={{ paddingBottom: 0 }}
 	>
-		<form onSubmit={handleSubmit(onAdd)}>
+		<form onSubmit={handleSubmit(onAdd.bind(this))}>
 			<Field
 				name='description'
 				component={TxtField}
@@ -45,7 +47,7 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 						label={intl.formatMessage(messages['randomQuotes.containers.quote.cancel'])}
 						buttonStyle={{ height: '50px', lineHeight: '50px' }}
 						onClick={() => {
-							onRequestClose(false)
+							onRequestClose()
 							reset()
 						}}
 						fullWidth
@@ -69,15 +71,16 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 renderAdd.propTypes = {
 	openDialog: PropTypes.bool.isRequired,
 	submitting: PropTypes.bool.isRequired,
+	reset: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]).isRequired,
 	onRequestClose: PropTypes.func.isRequired,
 	onAdd: PropTypes.func.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	reset: PropTypes.func.isRequired,
 	intl: intlShape
 }
 
 export const Add = reduxForm({
 	form: 'AddQuote',
 	validate,
-	enableReinitialize: true
+	enableReinitialize: true,
+	onSubmitSuccess: handleReset
 })(injectIntl(renderAdd))

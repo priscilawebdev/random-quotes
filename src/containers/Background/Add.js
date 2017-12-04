@@ -1,6 +1,6 @@
 import React from 'react'
 import { intlShape, injectIntl } from 'react-intl'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, reset as resetOnSubmit } from 'redux-form'
 import PropTypes from 'prop-types'
 import Dialog from 'material-ui/Dialog'
 import { GridList, GridTile } from 'material-ui/GridList'
@@ -10,13 +10,15 @@ import messages from './messages'
 import { Button } from './styles'
 import validate from './validate'
 
-const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, progress, onRequestClose }) => (
+const handleReset = (result, dispatch) => dispatch(resetOnSubmit('AddBackground'))
+
+const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, onRequestClose }) => (
 	<Dialog
 		title={intl.formatMessage(messages['randomQuotes.containers.background.createBackground'])}
 		open={openDialog}
 		modal={false}
 		onRequestClose={() => {
-			onRequestClose(false)
+			onRequestClose()
 			reset()
 		}}
 		bodyStyle={{ overflow: 'inherit' }}
@@ -27,7 +29,6 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, p
 				name='file'
 				component={FileInput}
 				accept='image/*'
-				progress={progress}
 				label={intl.formatMessage(messages['randomQuotes.containers.background.chooseAnImage'])}
 				fullWidth
 			/>
@@ -38,15 +39,15 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, p
 				fullWidth
 			/>
 			<Field
-				name='link'
-				component={TxtField}
-				label={intl.formatMessage(messages['randomQuotes.containers.background.link'])}
-				fullWidth
-			/>
-			<Field
 				name='by'
 				component={TxtField}
 				label={intl.formatMessage(messages['randomQuotes.containers.background.by'])}
+				fullWidth
+			/>
+			<Field
+				name='link'
+				component={TxtField}
+				label={intl.formatMessage(messages['randomQuotes.containers.background.link'])}
 				fullWidth
 			/>
 			<GridList cols={2} cellHeight='auto'>
@@ -56,7 +57,7 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, p
 						label={intl.formatMessage(messages['randomQuotes.containers.background.cancel'])}
 						buttonStyle={{ height: '50px', lineHeight: '50px' }}
 						onClick={() => {
-							onRequestClose(false)
+							onRequestClose()
 							reset()
 						}}
 						fullWidth
@@ -79,11 +80,10 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, p
 
 renderAdd.propTypes = {
 	openDialog: PropTypes.bool.isRequired,
+	reset: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]).isRequired,
 	submitting: PropTypes.bool.isRequired,
 	onRequestClose: PropTypes.func.isRequired,
 	onAdd: PropTypes.func.isRequired,
-	reset: PropTypes.func.isRequired,
-	progress: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	intl: intlShape
 }
@@ -91,5 +91,6 @@ renderAdd.propTypes = {
 export const Add = reduxForm({
 	form: 'AddBackground',
 	validate,
-	enableReinitialize: true
+	enableReinitialize: true,
+	onSubmitSuccess: handleReset
 })(injectIntl(renderAdd))

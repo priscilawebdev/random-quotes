@@ -36,5 +36,9 @@ export default defineMessages({
 	'randomQuotes.containers.background.invalidFileFormat': {
 		id: 'randomQuotes.containers.background.invalidFileFormat',
 		defaultMessage: 'Invalid file format'
+	},
+	'randomQuotes.containers.background.invalidURL': {
+		id: 'randomQuotes.containers.background.invalidURL',
+		defaultMessage: 'Invalid URL'
 	}
 })

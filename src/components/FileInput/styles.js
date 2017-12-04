@@ -34,22 +34,10 @@ const Button = glamorous(RaisedButton)({
 	verticalAlign: 'middle'
 })
 
-const Progress = glamorous.div({
-	backgroundColor: '#00bcd4',
-	position: 'absolute',
-	top: 0,
-	bottom: 0,
-	right: 0,
-	left: 0,
-	opacity: 1
-}, ({ progress }) => ({
-	width: `${progress}%`
-}))
 
 export {
 	Input,
 	Error,
 	Button,
-	Progress,
 	HR
 }

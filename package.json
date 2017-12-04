@@ -32,10 +32,11 @@
     "redux": "^3.7.2",
     "redux-action-buffer": "^1.1.0",
     "redux-form": "^7.1.2",
-    "redux-persist": "4.10.1",
+    "redux-persist": "^5.4.0",
     "redux-saga": "^0.16.0",
     "redux-saga-firebase": "^0.7.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "url-regex": "^4.1.1"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",

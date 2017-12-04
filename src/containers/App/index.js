@@ -3,18 +3,18 @@ import Switch from 'react-router-dom/Switch'
 import Route from 'react-router-dom/Route'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import HomePage from 'containers/HomePage/Loadable'
-import Login from 'containers/Login/Loadable'
+import HomePage from 'containers/HomePage'
+import Login from 'containers/Login'
 
 const App = () => (
-	<div className='AppWrapper'>
-		<MuiThemeProvider>
+	<MuiThemeProvider>
+		<div className='AppWrapper'>
 			<Switch>
 				<Route exact path='/' component={HomePage} />
 				<Route path='/login' component={Login} />
 			</Switch>
-		</MuiThemeProvider>
-	</div>
+		</div>
+	</MuiThemeProvider>
 )
 
 export default App

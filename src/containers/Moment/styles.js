@@ -26,6 +26,7 @@ const H2 = glamorous.h2({
 	fontSize: '3em',
 	fontWeight: 500,
 	textTransform: 'lowercase',
+	cursor: 'text',
 	':first-letter': {
 		textTransform: 'uppercase'
 	},
