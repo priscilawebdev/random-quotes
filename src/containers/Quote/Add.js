@@ -4,9 +4,9 @@ import { Field, reduxForm, reset as resetOnSubmit } from 'redux-form'
 import PropTypes from 'prop-types'
 import Dialog from 'material-ui/Dialog'
 import { GridList, GridTile } from 'material-ui/GridList'
-import TxtField from 'components/Txtfield'
+import TextInput from 'components/TextInput'
+import Button from 'components/Button'
 import messages from './messages'
-import { Button } from './styles'
 import validate from './validate'
 
 const required = value => (value ? undefined : 'Required')
@@ -28,14 +28,14 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 		<form onSubmit={handleSubmit(onAdd.bind(this))}>
 			<Field
 				name='description'
-				component={TxtField}
+				component={TextInput}
 				label={intl.formatMessage(messages['randomQuotes.containers.quote.description'])}
 				validate={[required]}
 				fullWidth
 			/>
 			<Field
 				name='author'
-				component={TxtField}
+				component={TextInput}
 				label={intl.formatMessage(messages['randomQuotes.containers.quote.author'])}
 				validate={[required]}
 				fullWidth
@@ -58,7 +58,6 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 						type='submit'
 						label={intl.formatMessage(messages['randomQuotes.containers.quote.create'])}
 						disabled={submitting}
-						buttonStyle={{ height: '50px', lineHeight: '50px' }}
 						fullWidth
 						primary
 					/>

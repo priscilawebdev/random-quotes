@@ -1,8 +1,5 @@
 import glamorous from 'glamorous'
-import RaisedButton from 'material-ui/RaisedButton'
 import { mediaQueries } from '../../style-utils'
-import imgHeart from './img/icon-heart.svg'
-import imgHeartEmpty from './img/icon-heart-empty.svg'
 
 const authorClassName = 'author'
 const Author = glamorous.span(authorClassName, {
@@ -11,12 +8,14 @@ const Author = glamorous.span(authorClassName, {
 	bottom: 0,
 	left: 0,
 	opacity: 0,
-	transition: 'all .35s ease'
+	transition: 'all .35s ease',
+	cursor: 'pointer'
 })
 Author.className = authorClassName
 
 const descriptionClassName = 'quoteDescription'
 const Description = glamorous.span(descriptionClassName, {
+	fontFamily: 'Caveat',
 	display: 'block',
 	fontSize: '1.5em',
 	transition: 'all .35s ease',
@@ -38,9 +37,9 @@ Wrapper.className = wrapperClassName
 
 const Name = glamorous.span({
 	fontSize: '1em',
-	fontFamily: 'Roboto',
 	textTransform: 'capitalize',
-	marginRight: 5
+	marginRight: 5,
+	cursor: 'text'
 })
 
 const Inner = glamorous.div({
@@ -68,30 +67,11 @@ const P = glamorous.p({
 	margin: 0
 })
 
-const Img = glamorous.span({
-	height: '15',
-	width: '14',
-	position: 'absolute',
-	cursor: 'pointer',
-	top: 4,
-}, ({ full = false }) => ({
-	backgroundImage: `url(${full ? imgHeart : imgHeartEmpty})`
-}))
-
-const Button = glamorous(RaisedButton)({
-	marginTop: 20,
-	'& div > div': {
-		height: '50px !important'
-	}
-})
-
 export {
 	Author,
 	Description,
 	Name,
 	Inner,
 	Wrapper,
-	P,
-	Img,
-	Button
+	P
 }

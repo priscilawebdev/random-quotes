@@ -4,10 +4,10 @@ import { Field, reduxForm, reset as resetOnSubmit } from 'redux-form'
 import PropTypes from 'prop-types'
 import Dialog from 'material-ui/Dialog'
 import { GridList, GridTile } from 'material-ui/GridList'
-import TxtField from 'components/Txtfield'
+import TextInput from 'components/TextInput'
 import FileInput from 'components/FileInput'
+import Button from 'components/Button'
 import messages from './messages'
-import { Button } from './styles'
 import validate from './validate'
 
 const handleReset = (result, dispatch) => dispatch(resetOnSubmit('AddBackground'))
@@ -34,19 +34,19 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 			/>
 			<Field
 				name='from'
-				component={TxtField}
+				component={TextInput}
 				label={intl.formatMessage(messages['randomQuotes.containers.background.from'])}
 				fullWidth
 			/>
 			<Field
 				name='by'
-				component={TxtField}
+				component={TextInput}
 				label={intl.formatMessage(messages['randomQuotes.containers.background.by'])}
 				fullWidth
 			/>
 			<Field
 				name='link'
-				component={TxtField}
+				component={TextInput}
 				label={intl.formatMessage(messages['randomQuotes.containers.background.link'])}
 				fullWidth
 			/>
@@ -55,7 +55,6 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 					<Button
 						type='button'
 						label={intl.formatMessage(messages['randomQuotes.containers.background.cancel'])}
-						buttonStyle={{ height: '50px', lineHeight: '50px' }}
 						onClick={() => {
 							onRequestClose()
 							reset()
@@ -68,7 +67,6 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 						type='submit'
 						label={intl.formatMessage(messages['randomQuotes.containers.background.create'])}
 						disabled={submitting}
-						buttonStyle={{ height: '50px', lineHeight: '50px' }}
 						fullWidth
 						primary
 					/>

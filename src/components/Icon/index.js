@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { Wrapper, Img } from './styles'
+import { Wrapper, Table, TableCell } from './indexStyles'
 
 const iconNames = [
 	'garbage',
@@ -11,12 +10,6 @@ const iconNames = [
 	'add',
 	'loading',
 	'image'
-]
-
-const cursorTypes = [
-	'auto',
-	'pointer',
-	'default'
 ]
 
 export const icons = iconNames.reduce((acc, curr) => ({
@@ -30,25 +23,25 @@ const Icon = ({
 	md,
 	lg,
 	customSize,
-	fitHeight = true,
-	rotate46 = false,
-	cursor = 'auto',
+	rotate45 = false,
 	onClick
 } = {}) => (
-	<Wrapper {...{ sm, md, lg, cursor, customSize, rotate46, name }} onClick={onClick}>
-		<Img url={icons[name]} fitHeight={fitHeight} alt={icons[name]} />
+	<Wrapper onClick={onClick}>
+		<Table>
+			<TableCell {...{ sm, md, lg, customSize, rotate45, name }}>
+				<img src={icons[name]} alt={icons[name]} />
+			</TableCell>
+		</Table>
 	</Wrapper>
 )
 
 Icon.propTypes = {
 	name: PropTypes.oneOf(iconNames).isRequired,
-	cursor: PropTypes.oneOf(cursorTypes),
 	onClick: PropTypes.func,
 	sm: PropTypes.bool,
 	md: PropTypes.bool,
 	lg: PropTypes.bool,
-	rotate46: PropTypes.bool,
-	fitHeight: PropTypes.bool,
+	rotate45: PropTypes.bool,
 	customSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }
 

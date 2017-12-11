@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { actions } from 'reducers/backgrounds'
-import { Wrapper } from './styles'
+import Wrapper from './indexStyles'
 
 class Background extends Component {
 

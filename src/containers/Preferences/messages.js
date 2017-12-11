@@ -9,6 +9,14 @@ export default defineMessages({
 		id: 'randomQuotes.containers.preferences.quotes',
 		defaultMessage: 'Quotes'
 	},
+	'randomQuotes.containers.preferences.general': {
+		id: 'randomQuotes.containers.preferences.general',
+		defaultMessage: 'General'
+	},
+	'randomQuotes.containers.preferences.account': {
+		id: 'randomQuotes.containers.preferences.account',
+		defaultMessage: 'Account'
+	},
 	'randomQuotes.containers.preferences.delete': {
 		id: 'randomQuotes.containers.preferences.delete',
 		defaultMessage: 'Delete'

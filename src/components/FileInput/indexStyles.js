@@ -1,6 +1,5 @@
 import glamorous from 'glamorous'
 import RaisedButton from 'material-ui/RaisedButton'
-import { icons } from 'components/Icon'
 
 const Error = glamorous.div({
 	fontSize: 12,

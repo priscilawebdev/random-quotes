@@ -9,9 +9,8 @@ import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
-
 import Icon from 'components/Icon'
-import { Img } from './styles'
+import Img from 'components/Img'
 import messages from './messages'
 
 const iconButtonElement = (
@@ -34,14 +33,9 @@ const rightIconMenu = func => (
 
 const Content = ({ showQuotes, quotes, backgrounds, onDelete }) => (
 	showQuotes ? (
-		<GridList
-			style={{ maxHeight: 355, minHeight: 355, margin: 0 }}
-			padding={0}
-			cols={1}
-			cellHeight='auto'
-		>
-			<GridTile cols={1}>
-				<List style={{ paddingRight: 11, paddingLeft: 11, height: '100%', overflowY: 'auto' }}>
+		<GridList cols={1} cellHeight='auto'>
+			<GridTile>
+				<List>
 					{	quotes.map(quote => (
 						<div key={quote.id}>
 							<Divider />
@@ -64,11 +58,7 @@ const Content = ({ showQuotes, quotes, backgrounds, onDelete }) => (
 			</GridTile>
 		</GridList>
 	) : (
-		<GridList
-			style={{ maxHeight: 355, height: 'auto', marginRight: 10, marginLeft: 10, overflowY: 'auto' }}
-			cols={3}
-			cellHeight={130}
-		>
+		<GridList cols={3} cellHeight={130}>
 			{backgrounds.map(background => (
 				<GridTile
 					key={background.id}
@@ -82,7 +72,7 @@ const Content = ({ showQuotes, quotes, backgrounds, onDelete }) => (
 						/>
 					}
 				>
-					<Img url={background.url} borderRadius={2} />
+					<Img url={background.url} />
 				</GridTile>
 			))}
 		</GridList>

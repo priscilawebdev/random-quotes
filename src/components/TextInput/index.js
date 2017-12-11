@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
 
-const TxtField = ({ input, label, meta: { touched, error }, ...custom }) => (
+const TextInput = ({ input, label, meta: { touched, error }, ...custom }) => (
 	<TextField
 		hintText={label}
 		floatingLabelText={label}
@@ -12,10 +12,10 @@ const TxtField = ({ input, label, meta: { touched, error }, ...custom }) => (
 	/>
 )
 
-TxtField.propTypes = {
+TextInput.propTypes = {
 	input: PropTypes.object.isRequired,
 	meta: PropTypes.object.isRequired,
 	label: PropTypes.string
 }
 
-export default TxtField
+export default TextInput

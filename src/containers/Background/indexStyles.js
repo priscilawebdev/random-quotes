@@ -1,5 +1,4 @@
 import glamorous from 'glamorous'
-import RaisedButton from 'material-ui/RaisedButton'
 
 const Wrapper = glamorous.div({
 	cursor: 'default',
@@ -13,14 +12,4 @@ const Wrapper = glamorous.div({
 	backgroundImage: Object.keys(background).length > 0 ? `url(${background.url})` : 'none'
 }))
 
-const Button = glamorous(RaisedButton)({
-	marginTop: 20,
-	'& div > div': {
-		height: '50px !important'
-	}
-})
-
-export {
-	Wrapper,
-	Button
-}
+export default Wrapper

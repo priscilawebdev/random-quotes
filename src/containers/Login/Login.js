@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import Visibility from 'material-ui/svg-icons/action/visibility'
-import VisibilityOff from 'material-ui/svg-icons/action/visibility-off'
 import { actions } from 'reducers/auth'
-import TxtField from 'components/Txtfield'
+import TextInput from 'components/TextInput'
+import Button from 'components/Button'
+import PasswordInput from 'components/PasswordInput'
 import messages from './messages'
 import validate from './validate'
-import { Form, PasswordWrapper, Title, Wrapper, CheckBoxField, Button } from './styles'
+import { Form, Title, Wrapper } from './styles'
 
 class Login extends Component {
 
@@ -22,7 +22,6 @@ class Login extends Component {
 
 	constructor() {
 		super()
-		this.state = { showPassword: false }
 		this.handleLogin = ::this.handleLogin
 	}
 
@@ -33,7 +32,6 @@ class Login extends Component {
 
 	render() {
 		const { handleSubmit, submitting, intl } = this.props
-		const { showPassword } = this.state
 		return (
 			<Wrapper>
 				<Title>{intl.formatMessage(messages['randomQuotes.containers.login'])}</Title>
@@ -41,33 +39,15 @@ class Login extends Component {
 					<Field
 						name='email'
 						type='email'
-						component={TxtField}
+						component={TextInput}
 						label={intl.formatMessage(messages['randomQuotes.containers.login.email'])}
 						fullWidth
 					/>
-					<PasswordWrapper>
-						<Field
-							name='password'
-							type={showPassword ? 'text' : 'password'}
-							component={TxtField}
-							label={intl.formatMessage(messages['randomQuotes.containers.login.password'])}
-							fullWidth
-						/>
-						<Field
-							name='show'
-							type='checkbox'
-							component={CheckBoxField}
-							onCheck={() => this.setState({ showPassword: !this.state.showPassword })}
-							iconStyle={{ fill: 'rgba(0, 0, 0, 0.22)', marginRight: 0 }}
-							checkedIcon={<Visibility />}
-							uncheckedIcon={<VisibilityOff />}
-						/>
-					</PasswordWrapper>
+					<PasswordInput />
 					<Button
 						type='submit'
 						label={intl.formatMessage(messages['randomQuotes.containers.login'])}
 						disabled={submitting}
-						buttonStyle={{ height: '50px', lineHeight: '50px' }}
 						primary
 						fullWidth
 					/>

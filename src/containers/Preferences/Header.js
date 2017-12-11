@@ -1,46 +1,34 @@
 import React from 'react'
-import { intlShape, injectIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
-import RaisedButton from 'material-ui/RaisedButton'
-import { GridList, GridTile } from 'material-ui/GridList'
-
+import { GridList } from 'material-ui/GridList'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import Button from 'components/Button'
+import { GridItem, Title } from './HeaderStyles'
 import messages from './messages'
 
-const Header = ({ intl, handleShowQuotes }) => (
-	<GridList
-		cellHeight='auto'
-		cols={2}
-		padding={0}
-		style={{
-			margin: 0,
-			borderRight: '1px solid #FFFFFF',
-			borderLeft: '1px solid #FFFFFF',
-			borderTopLeftRadius: 2,
-			borderTopRightRadius: 2
-		}}
-	>
-		<GridTile style={{ paddingRight: 1 }}>
-			<RaisedButton
-				label={intl.formatMessage(messages['randomQuotes.containers.preferences.photos'])}
-				onClick={() => handleShowQuotes(false)}
-				buttonStyle={{ borderRadius: 0 }}
-				fullWidth
-			/>
-		</GridTile>
-		<GridTile style={{ paddingLeft: 1 }}>
-			<RaisedButton
-				label={intl.formatMessage(messages['randomQuotes.containers.preferences.quotes'])}
-				onClick={() => handleShowQuotes(true)}
-				buttonStyle={{ borderRadius: 0 }}
-				fullWidth
-			/>
-		</GridTile>
-	</GridList>
-)
-
-Header.propTypes = {
-	handleShowQuotes: PropTypes.func.isRequired,
-	intl: intlShape
+const Header = ({ showQuotes }) => {
+	const currentlyShowing =
+		<FormattedMessage{...messages[`randomQuotes.containers.preferences.${showQuotes ? 'quotes' : 'photos'}`]} />
+	return (
+		<GridList cols={2} cellHeight='auto'>
+			<GridItem>
+				<Title>{currentlyShowing}</Title>
+			</GridItem>
+			<GridItem>
+				<Button
+					label={currentlyShowing}
+					icon={<ContentAdd />}
+					onClick={this.handleOpenDialog}
+					sm
+				/>
+			</GridItem>
+		</GridList>
+	)
 }
 
-export default injectIntl(Header)
+Header.propTypes = {
+	showQuotes: PropTypes.bool.isRequired
+}
+
+export default Header

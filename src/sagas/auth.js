@@ -7,6 +7,7 @@ function* loginSaga({ credentials: { email, password } }) {
 		const data = yield call(reduxSagaFirebase.auth.signInWithEmailAndPassword, email, password)
 		yield put(actions.loginSuccess(data))
 	} catch (error) {
+		console.log('error', error)
 		yield put(actions.loginFailure(error))
 	}
 }

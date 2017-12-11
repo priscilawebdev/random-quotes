@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { Error, HR, Button, Input } from './styles'
+import { Error, HR, Button, Input } from './indexStyles'
 
 class FileField extends Component {
 	constructor(props) {

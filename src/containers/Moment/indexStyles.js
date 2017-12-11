@@ -2,7 +2,6 @@ import glamorous from 'glamorous'
 import { mediaQueries } from '../../style-utils'
 
 const Wrapper = glamorous.div({
-	fontFamily: 'Roboto',
 	textAlign: 'center',
 	marginTop: 'auto',
 	marginBottom: 'auto',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Greetings from 'components/Greetings'
-import { Wrapper, H1, H2 } from './styles'
+import { Wrapper, H1, H2 } from './indexStyles'
 
 export default class Moment extends Component {
 

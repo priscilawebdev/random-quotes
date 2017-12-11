@@ -9,10 +9,6 @@ export default defineMessages({
 		id: 'randomQuotes.containers.login.username',
 		defaultMessage: 'Username'
 	},
-	'randomQuotes.containers.login.password': {
-		id: 'randomQuotes.containers.login.password',
-		defaultMessage: 'Password'
-	},
 	'randomQuotes.containers.login.required': {
 		id: 'randomQuotes.containers.login.required',
 		defaultMessage: 'This field is required'

@@ -3,8 +3,9 @@ import { FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { actions } from 'reducers/quotes'
+import Icon from 'components/Icon'
 import messages from './messages'
-import { Author, Name, Description, Inner, Wrapper, P, Img } from './styles'
+import { Author, Name, Description, Inner, Wrapper, P } from './indexStyles'
 
 class Quote extends Component {
 
@@ -12,6 +13,11 @@ class Quote extends Component {
 		handleUpdate: PropTypes.func.isRequired,
 		quotes: PropTypes.array.isRequired,
 		quote: PropTypes.object
+	}
+
+	constructor() {
+		super()
+		this.handleUpdateQuote = :: this.handleUpdateQuote
 	}
 
 	componentDidMount() {
@@ -28,9 +34,9 @@ class Quote extends Component {
 		}
 	}
 
-	handleUpdateQuote(modifiedQuote) {
-		const { handleUpdate } = this.props
-		handleUpdate(modifiedQuote)
+	handleUpdateQuote() {
+		const { handleUpdate, quote } = this.props
+		handleUpdate({ ...quote, like: !quote.like })
 	}
 
 	render() {
@@ -48,7 +54,11 @@ class Quote extends Component {
 							</Description>
 							<Author>
 								<Name>{quote.author.toLowerCase()}</Name>
-								<Img full={quote.like} onClick={() => this.handleUpdateQuote({ ...quote, like: !quote.like })} />
+								<Icon
+									name={quote.like ? 'heart' : 'heart-empty'}
+									customSize={15}
+									onClick={this.handleUpdateQuote}
+								/>
 							</Author>
 						</P>
 					</Inner>
