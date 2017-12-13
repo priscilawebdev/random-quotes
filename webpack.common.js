@@ -16,10 +16,6 @@ module.exports = {
 			loader: 'babel-loader',
 			exclude: /node_modules/
 		}, {
-			test: /(components|containers)*(js|jsx)$/,
-			loaders: 'baggage-loader?{"index.sass":{}}',
-			include: path.join(__dirname, 'src')
-		}, {
 			// Preprocess 3rd party .css files located in node_modules
 			test: /\.css$/,
 			include: /node_modules/,

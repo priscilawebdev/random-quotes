@@ -52,9 +52,7 @@ export const actions = {
 		FAILURE: 'random-quotes/auth/LOGIN.FAILURE'
 	},
 	LOGOUT: {
-		REQUEST: 'random-quotes/auth/LOGOUT.REQUEST',
-		SUCCESS: 'random-quotes/auth/LOGOUT.SUCCESS',
-		FAILURE: 'random-quotes/auth/LOGOUT.FAILURE'
+		REQUEST: 'random-quotes/auth/LOGOUT.REQUEST'
 	},
 	SYNC_USER: 'random-quotes/auth/SYNC_USER',
 	login: credentials => ({
@@ -71,13 +69,6 @@ export const actions = {
 	}),
 	logout: () => ({
 		type: actions.LOGOUT.REQUEST
-	}),
-	logoutSuccess: () => ({
-		type: actions.LOGOUT.SUCCESS
-	}),
-	logoutFailure: error => ({
-		type: actions.LOGOUT.FAILURE,
-		error
 	}),
 	syncUser: user => ({
 		type: actions.SYNC_USER,

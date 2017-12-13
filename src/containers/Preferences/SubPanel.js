@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { GridTile } from 'material-ui/GridList'
 import { actions as QtsActions } from 'reducers/quotes'
 import { actions as BgsActions } from 'reducers/backgrounds'
+import { actions as AuthActions } from 'reducers/auth'
 import Menu from './Menu'
 import Header from './Header'
 import Content from './Content'
@@ -17,60 +18,73 @@ class Preferences extends Component {
 		handleRemoveQuote: PropTypes.func.isRequired,
 		handleRemoveBackground: PropTypes.func.isRequired,
 		handleAddQuote: PropTypes.func.isRequired,
-		handleAddBackground: PropTypes.func.isRequired
+		handleAddBackground: PropTypes.func.isRequired,
+		handleLogout: PropTypes.func.isRequired,
+		onOpenDialog: PropTypes.func.isRequired,
+		openDialog: PropTypes.bool.isRequired,
+		user: PropTypes.object.isRequired
 	}
 
 	constructor() {
 		super()
-		this.state = { showQuotes: true, openDialog: false }
+		this.state = { show: 'general' }
 		this.handleRemoveData = ::this.handleRemoveData
 		this.handleAddData = ::this.handleAddData
-		this.handleOpenDialog = ::this.handleOpenDialog
-		this.handleCloseDialog = ::this.handleCloseDialog
-		this.handleShowQuotes = ::this.handleShowQuotes
-		this.handleShowPhotos = ::this.handleShowPhotos
+		this.handleShow = ::this.handleShow
+		this.handleLogout = ::this.handleLogout
 	}
 
-	handleOpenDialog() { this.setState({ openDialog: true }) }
-
-	handleCloseDialog() { this.setState({ openDialog: false }) }
-
-	handleShowQuotes() { this.setState({ showQuotes: true }) }
-
-	handleShowPhotos() { this.setState({ showQuotes: false }) }
+	handleShow(what) {
+		this.setState({ show: what })
+	}
 
 	handleRemoveData(id) {
 		const { handleRemoveQuote, handleRemoveBackground } = this.props
-		const { showQuotes } = this.state
-		showQuotes ? handleRemoveQuote(id) : handleRemoveBackground(id)
+		const { show } = this.state
+		show === 'quotes' ? handleRemoveQuote(id) : handleRemoveBackground(id)
 	}
 
 	handleAddData(values) {
 		const { handleAddQuote, handleAddBackground } = this.props
-		const { showQuotes } = this.state
-		showQuotes ? handleAddQuote(values) : handleAddBackground(values)
+		const { show } = this.state
+		show === 'quotes' ? handleAddQuote(values) : handleAddBackground(values)
+		this.handleCloseDialog()
+	}
+
+	handleLogout() {
+		const { handleLogout } = this.props
+		handleLogout()
 	}
 
 	render() {
-		const { quotes, backgrounds } = this.props
-		const { showQuotes } = this.state
+		const { quotes, backgrounds, user, openDialog, onOpenDialog } = this.props
+		const { show } = this.state
 		return (
 			<Grid cols={8} cellHeight='auto' noMargin>
 				<GridTile cols={2}>
-					<Menu onShowQuotes={this.handleShowQuotes} onShowPhotos={this.handleShowPhotos} />
+					<Menu onShow={this.handleShow} />
 				</GridTile>
 				<GridTile cols={6}>
 					<Grid cols={1} padding={16} cellHeight='auto' overflowY='auto' multiline={false}>
 						<GridTile>
-							<Header showQuotes={showQuotes} />
+							<Header
+								show={show}
+								user={user}
+								onLogout={this.handleLogout}
+								onOpenDialog={onOpenDialog}
+								onAdd={this.handleAddData}
+								openDialog={openDialog}
+							/>
 						</GridTile>
 						<GridTile>
-							<Content
-								showQuotes={showQuotes}
-								onDelete={this.handleRemoveData}
-								backgrounds={backgrounds}
-								quotes={quotes}
-							/>
+							{show !== 'general' ? (
+								<Content
+									show={show}
+									onDelete={this.handleRemoveData}
+									backgrounds={backgrounds}
+									quotes={quotes}
+								/>
+							) : null}
 						</GridTile>
 					</Grid>
 				</GridTile>
@@ -83,7 +97,8 @@ const mapDispatchToProps = {
 	handleRemoveQuote: QtsActions.removeQuote,
 	handleRemoveBackground: BgsActions.removeBackground,
 	handleAddQuote: QtsActions.addQuote,
-	handleAddBackground: BgsActions.addBackground
+	handleAddBackground: BgsActions.addBackground,
+	handleLogout: AuthActions.logout
 }
 
 export default connect(null, mapDispatchToProps)(Preferences)

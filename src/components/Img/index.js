@@ -1,14 +1,4 @@
-import React from 'react'
 import glamorous from 'glamorous'
-import RaisedButton from 'material-ui/RaisedButton'
-
-const radiusMap = {
-	topLeft: 'borderTopLeftRadius',
-	topRight: 'borderTopRightRadius',
-	bottomRight: 'borderBottomRightRadius',
-	bottomLeft: 'borderBottomLeftRadius',
-	all: 'borderRadius'
-}
 
 const Img = glamorous.div({
 	backgroundRepeat: 'no-repeat',

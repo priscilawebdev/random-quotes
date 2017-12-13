@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 import ConnectedRouter from 'react-router-redux/ConnectedRouter'
 import Provider from 'react-redux/lib/components/Provider'
 import createHistory from 'history/createBrowserHistory'
-
 import LanguageProvider from 'containers/LanguageProvider'
 import App from 'containers/App'
 import configureStore from './store'
+import './index.sass'
 
 const history = createHistory()
 const store = configureStore()

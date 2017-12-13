@@ -4,26 +4,25 @@ import PropTypes from 'prop-types'
 import { UL, LI } from './MenuStyles'
 import messages from './messages'
 
-const Menu = ({ intl, onShowQuotes, onShowPhotos }) => (
+const Menu = ({ intl, onShow }) => (
 	<UL>
 		<LI
 			primaryText={intl.formatMessage(messages['randomQuotes.containers.preferences.general'])}
-			onClick={onShowPhotos}
+			onClick={() => onShow('general')}
 		/>
 		<LI
 			primaryText={intl.formatMessage(messages['randomQuotes.containers.preferences.photos'])}
-			onClick={onShowPhotos}
+			onClick={() => onShow('photos')}
 		/>
 		<LI
 			primaryText={intl.formatMessage(messages['randomQuotes.containers.preferences.quotes'])}
-			onClick={onShowQuotes}
+			onClick={() => onShow('quotes')}
 		/>
 	</UL>
 )
 
 Menu.propTypes = {
-	onShowQuotes: PropTypes.func.isRequired,
-	onShowPhotos: PropTypes.func.isRequired,
+	onShow: PropTypes.func.isRequired,
 	intl: intlShape
 }
 

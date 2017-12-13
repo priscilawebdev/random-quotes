@@ -11,20 +11,37 @@ class Settings extends Component {
 		authenticated: PropTypes.bool.isRequired,
 		quotes: PropTypes.array.isRequired,
 		backgrounds: PropTypes.array.isRequired,
-		onClick: PropTypes.func.isRequired
+		onClick: PropTypes.func.isRequired,
+		user: PropTypes.object
 	}
 
-	constructor(props) {
-		super(props)
+	constructor() {
+		super()
+		this.state = { openDialog: false }
 		this.handleClickOutside = ::this.handleClickOutside
+		this.handleOpenDialog = ::this.handleOpenDialog
 	}
 
 	componentWillMount() {
 		document.addEventListener('click', this.handleClickOutside, false)
 	}
 
+	// TODO: need refactor
+	componentDidUpdate(__, prevState) {
+		console.log(prevState)
+		!prevState.openDialog && this.state.openDialog ? (
+			document.removeEventListener('click', this.handleClickOutside, false)
+		) : (
+			document.addEventListener('click', this.handleClickOutside, false)
+		)
+	}
+
 	componentWillUnmount() {
 		document.removeEventListener('click', this.handleClickOutside, false)
+	}
+
+	handleOpenDialog() {
+		this.setState({ openDialog: !this.state.openDialog })
 	}
 
 	handleClickOutside(e) {
@@ -36,13 +53,20 @@ class Settings extends Component {
 	}
 
 	render() {
-		const { authenticated, quotes, backgrounds } = this.props
+		const { authenticated, quotes, backgrounds, user } = this.props
+		const { openDialog } = this.state
 		return (
 			<Wrapper innerRef={(node) => { this.node = node }}>
 				<Panel authenticated={authenticated}>
 					{
-						authenticated ? (
-							<SubPanel quotes={quotes} backgrounds={backgrounds} />
+						authenticated && user ? (
+							<SubPanel
+								quotes={quotes}
+								backgrounds={backgrounds}
+								user={user}
+								onOpenDialog={this.handleOpenDialog}
+								openDialog={openDialog}
+							/>
 						) : (
 							<Login />
 						)
@@ -54,7 +78,8 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => ({
-	authenticated: state.auth.authenticated
+	authenticated: state.auth.authenticated,
+	user: state.auth.user
 })
 
 export default connect(mapStateToProps)(Settings)

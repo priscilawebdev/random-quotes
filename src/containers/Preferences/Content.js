@@ -31,8 +31,8 @@ const rightIconMenu = func => (
 	</IconMenu>
 )
 
-const Content = ({ showQuotes, quotes, backgrounds, onDelete }) => (
-	showQuotes ? (
+const Content = ({ show, quotes, backgrounds, onDelete }) => (
+	show === 'quotes' ? (
 		<GridList cols={1} cellHeight='auto'>
 			<GridTile>
 				<List>
@@ -80,7 +80,7 @@ const Content = ({ showQuotes, quotes, backgrounds, onDelete }) => (
 )
 
 Content.propTypes = {
-	showQuotes: PropTypes.bool.isRequired,
+	show: PropTypes.string.isRequired,
 	backgrounds: PropTypes.array.isRequired,
 	onDelete: PropTypes.func.isRequired,
 	quotes: PropTypes.array.isRequired
