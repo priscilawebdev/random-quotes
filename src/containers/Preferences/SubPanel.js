@@ -13,16 +13,11 @@ import Grid from './SubPanelStyles'
 class Preferences extends Component {
 
 	static propTypes = {
-		backgrounds: PropTypes.array.isRequired,
-		quotes: PropTypes.array.isRequired,
 		handleRemoveQuote: PropTypes.func.isRequired,
 		handleRemoveBackground: PropTypes.func.isRequired,
 		handleAddQuote: PropTypes.func.isRequired,
 		handleAddBackground: PropTypes.func.isRequired,
-		handleLogout: PropTypes.func.isRequired,
-		onOpenDialog: PropTypes.func.isRequired,
-		openDialog: PropTypes.bool.isRequired,
-		user: PropTypes.object.isRequired
+		handleLogout: PropTypes.func.isRequired
 	}
 
 	constructor() {
@@ -48,7 +43,6 @@ class Preferences extends Component {
 		const { handleAddQuote, handleAddBackground } = this.props
 		const { show } = this.state
 		show === 'quotes' ? handleAddQuote(values) : handleAddBackground(values)
-		this.handleCloseDialog()
 	}
 
 	handleLogout() {
@@ -57,7 +51,6 @@ class Preferences extends Component {
 	}
 
 	render() {
-		const { quotes, backgrounds, user, openDialog, onOpenDialog } = this.props
 		const { show } = this.state
 		return (
 			<Grid cols={8} cellHeight='auto' noMargin>
@@ -69,11 +62,9 @@ class Preferences extends Component {
 						<GridTile>
 							<Header
 								show={show}
-								user={user}
 								onLogout={this.handleLogout}
-								onOpenDialog={onOpenDialog}
 								onAdd={this.handleAddData}
-								openDialog={openDialog}
+								{...this.props}
 							/>
 						</GridTile>
 						<GridTile>
@@ -81,8 +72,7 @@ class Preferences extends Component {
 								<Content
 									show={show}
 									onDelete={this.handleRemoveData}
-									backgrounds={backgrounds}
-									quotes={quotes}
+									{...this.props}
 								/>
 							) : null}
 						</GridTile>

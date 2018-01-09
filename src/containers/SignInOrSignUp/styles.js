@@ -18,8 +18,7 @@ const Wrapper = glamorous.div({
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'center',
-	alignContent: 'center',
-	background: '#FFFFFF'
+	alignContent: 'center'
 })
 
 export {

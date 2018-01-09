@@ -6,30 +6,30 @@ const initialState = {
 
 export default function reducer(state = initialState, { type, user }) {
 	switch (type) {
-		case actions.SIGN_IN.REQUEST:
-		case actions.SIGN_OUT.REQUEST:
+		case actions.LOGIN.REQUEST:
+		case actions.LOGOUT.REQUEST:
 			return {
 				...state,
 				loading: true
 			}
-		case actions.SIGN_IN.SUCCESS:
+		case actions.LOGIN.SUCCESS:
 			return {
 				...state,
 				loading: false,
 				authenticated: true
 			}
-		case actions.SIGN_IN.FAILURE:
+		case actions.LOGIN.FAILURE:
 			return {
 				...state,
 				loading: false
 			}
-		case actions.SIGN_OUT.SUCCESS:
+		case actions.LOGOUT.SUCCESS:
 			return {
 				...state,
 				loading: false,
 				authenticated: false
 			}
-		case actions.SIGN_OUT.FAILURE:
+		case actions.LOGOUT.FAILURE:
 			return {
 				...state,
 				loading: false
@@ -46,29 +46,25 @@ export default function reducer(state = initialState, { type, user }) {
 }
 
 export const actions = {
-	SIGN_IN: {
-		REQUEST: 'random-quotes/SIGN_IN/SIGN_IN.REQUEST',
-		SUCCESS: 'random-quotes/SIGN_IN/SIGN_IN.SUCCESS',
-		FAILURE: 'random-quotes/SIGN_IN/SIGN_IN.FAILURE'
+	REGISTER: {
+		REQUEST: 'random-quotes/register/REGISTER.REQUEST',
+		SUCCESS: 'random-quotes/register/REGISTER.SUCCESS',
+		FAILURE: 'random-quotes/register/REGISTER.FAILURE'
 	},
-	SIGN_OUT: {
-		REQUEST: 'random-quotes/SIGN_IN/SIGN_OUT.REQUEST'
-	},
-	SYNC_USER: 'random-quotes/SIGN_IN/SYNC_USER',
-	signIn: credentials => ({
-		type: actions.SIGN_IN.REQUEST,
+	login: credentials => ({
+		type: actions.LOGIN.REQUEST,
 		credentials
 	}),
-	signInSuccess: credential => ({
-		type: actions.SIGN_IN.SUCCESS,
+	loginSuccess: credential => ({
+		type: actions.LOGIN.SUCCESS,
 		credential
 	}),
-	signInFailure: error => ({
-		type: actions.SIGN_IN.FAILURE,
+	loginFailure: error => ({
+		type: actions.LOGIN.FAILURE,
 		error
 	}),
-	signOut: () => ({
-		type: actions.SIGN_OUT.REQUEST
+	logout: () => ({
+		type: actions.LOGOUT.REQUEST
 	}),
 	syncUser: user => ({
 		type: actions.SYNC_USER,
