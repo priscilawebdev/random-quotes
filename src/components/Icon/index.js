@@ -9,7 +9,8 @@ const iconNames = [
 	'heart-empty',
 	'add',
 	'loading',
-	'image'
+	'image',
+	'edit'
 ]
 
 export const icons = iconNames.reduce((acc, curr) => ({

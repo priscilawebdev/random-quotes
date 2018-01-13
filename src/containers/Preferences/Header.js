@@ -23,7 +23,7 @@ const Header = ({
 }) => (
 	category === 'general' ? (
 		<Account cols={6} cellHeight='auto'>
-			<GridItem cols={5} align='middle' justify='left'>
+			<GridItem cols={3} align='middle' justify='left'>
 				<User>
 					<Avatar src={user.photoURL} />
 					<Info>
@@ -31,6 +31,11 @@ const Header = ({
 						<p>{user.email}</p>
 					</Info>
 				</User>
+			</GridItem>
+			<GridItem cols={2} align='middle' justify='center'>
+				<Action onClick={onLogout} className='btn'>
+					{intl.formatMessage(messages['randomQuotes.containers.preferences.editAccount'])}
+				</Action>
 			</GridItem>
 			<GridItem cols={1} align='middle' justify='center'>
 				<Action onClick={onLogout} className='btn'>

@@ -17,6 +17,14 @@ export default defineMessages({
 		id: 'randomQuotes.containers.preferences.delete',
 		defaultMessage: 'Delete'
 	},
+	'randomQuotes.containers.preferences.edit': {
+		id: 'randomQuotes.containers.preferences.edit',
+		defaultMessage: 'Edit'
+	},
+	'randomQuotes.containers.preferences.editAccount': {
+		id: 'randomQuotes.containers.preferences.editAccount',
+		defaultMessage: 'Edit account'
+	},
 	'randomQuotes.containers.preferences.logout': {
 		id: 'randomQuotes.containers.preferences.logout',
 		defaultMessage: 'Logout'

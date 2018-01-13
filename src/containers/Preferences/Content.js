@@ -13,7 +13,7 @@ import Img from 'components/Img'
 import EmptyState from 'components/EmptyState'
 import { grey400 } from 'material-ui/styles/colors'
 import messages from './messages'
-import { LItem, PrimaryText } from './ContentStyles'
+import { LItem, PrimaryText, BGItem } from './ContentStyles'
 
 const iconButtonElement = (
 	<IconButton
@@ -23,14 +23,6 @@ const iconButtonElement = (
 	>
 		<MoreVertIcon color={grey400} />
 	</IconButton>
-)
-
-const rightIconMenu = func => (
-	<IconMenu iconButtonElement={iconButtonElement}>
-		<MenuItem onClick={func}>
-			<FormattedMessage {...messages['randomQuotes.containers.preferences.delete']} />
-		</MenuItem>
-	</IconMenu>
 )
 
 const getExtractQuoteContent = (onRemove, content) => (
@@ -51,7 +43,16 @@ const getExtractQuoteContent = (onRemove, content) => (
 										/>
 									</PrimaryText>
 								}
-								rightIconButton={rightIconMenu(() => onRemove(quote.id))}
+								rightIconButton={
+									<IconMenu iconButtonElement={iconButtonElement}>
+										<MenuItem onClick={() => onRemove(quote.id)}>
+											<FormattedMessage {...messages['randomQuotes.containers.preferences.edit']} />
+										</MenuItem>
+										<MenuItem onClick={() => onRemove(quote.id)}>
+											<FormattedMessage {...messages['randomQuotes.containers.preferences.delete']} />
+										</MenuItem>
+									</IconMenu>
+								}
 							/>
 							<Divider />
 						</div>
@@ -72,7 +73,7 @@ const getExtractBackgroundContent = (onRemove, content) => (
 	content.length > 0 ? (
 		<GridList cols={2} cellHeight={130}>
 			{content.map(background => (
-				<GridTile
+				<BGItem
 					key={background.id}
 					title={background.name}
 					subtitle={
@@ -82,19 +83,30 @@ const getExtractBackgroundContent = (onRemove, content) => (
 						/>
 					}
 					actionIcon={
-						<IconButton onClick={() => onRemove(background.id)} className='btn'>
-							<span className='btn'>
-								<Icon
-									name='garbage'
-									cursor='pointer'
-									sm
-								/>
-							</span>
-						</IconButton>
+						<div>
+							<IconButton onClick={() => onRemove(background.id)} className='btn'>
+								<span className='btn'>
+									<Icon
+										name='edit'
+										cursor='pointer'
+										sm
+									/>
+								</span>
+							</IconButton>
+							<IconButton onClick={() => onRemove(background.id)} className='btn'>
+								<span className='btn'>
+									<Icon
+										name='garbage'
+										cursor='pointer'
+										sm
+									/>
+								</span>
+							</IconButton>
+						</div>
 					}
 				>
 					<Img url={background.url} />
-				</GridTile>
+				</BGItem>
 			))}
 		</GridList>
 	) : (

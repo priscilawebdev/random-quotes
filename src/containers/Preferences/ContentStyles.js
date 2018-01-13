@@ -1,6 +1,7 @@
 import React from 'react'
 import glamorous from 'glamorous'
 import { ListItem } from 'material-ui/List'
+import { GridTile } from 'material-ui/GridList'
 import { white, grey400 } from 'material-ui/styles/colors'
 
 const LItem = glamorous(props => (
@@ -20,8 +21,16 @@ const PrimaryText = glamorous.div({
 	}
 })
 
+const BGItem = glamorous(props => (
+	<GridTile
+		titleStyle={{ width: 100 }}
+		subtitleStyle={{ width: 100 }}
+		{...props}
+	/>
+))()
 
 export {
 	LItem,
-	PrimaryText
+	PrimaryText,
+	BGItem
 }
