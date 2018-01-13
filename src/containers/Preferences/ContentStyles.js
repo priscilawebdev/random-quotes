@@ -1,27 +1,27 @@
+import React from 'react'
 import glamorous from 'glamorous'
-import { GridTile, GridList } from 'material-ui/GridList'
+import { ListItem } from 'material-ui/List'
+import { white, grey400 } from 'material-ui/styles/colors'
 
-const AddButton = glamorous(GridTile)({
-	display: 'flex !important',
-	height: 'auto !important',
-	flexDirection: 'column',
-	alignItems: 'flex-end'
+const LItem = glamorous(props => (
+	<ListItem
+		style={{ color: white, fontSize: 13 }}
+		{...props}
+	/>
+))()
+
+const PrimaryText = glamorous.div({
+	'& span': {
+		'&:nth-child(2)': {
+			color: grey400,
+			textTransform: 'capitalize',
+			marginLeft: 5
+		}
+	}
 })
 
-const Wrapper = glamorous(GridList)({
-	height: '100%',
-	overflowY: 'auto',
-	padding: 15
-})
-
-const ContentTitle = glamorous.div({
-	fontFamily: 'Caveat',
-	fontSize: '2.5em',
-	padding: 0
-})
 
 export {
-	Wrapper,
-	AddButton,
-	ContentTitle
+	LItem,
+	PrimaryText
 }

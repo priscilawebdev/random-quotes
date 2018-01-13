@@ -1,6 +1,7 @@
 const initialState = {
 	list: [],
-	quote: {}
+	quote: {},
+	loading: false
 }
 
 export default function reducer(state = initialState, { type, quotes, quote }) {

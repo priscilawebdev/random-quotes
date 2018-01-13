@@ -1,17 +1,14 @@
 import glamorous from 'glamorous'
+import { mediaQueries } from '../../style-utils'
 
-const Wrapper = glamorous.div(() => {
-	const quoteHeight = document.getElementsByClassName('quoteWrapper')[0]
-	return ({
-		position: 'absolute',
-		bottom: 20,
-		left: 17,
-		right: 17,
-		paddingLeft: 16,
-		height: quoteHeight ? quoteHeight.clientHeight : 'auto',
-		display: 'flex',
-		alignItems: 'center',
-		cursor: 'pointer'
-	})
+const Wrapper = glamorous.div({
+	position: 'absolute',
+	left: 17,
+	zIndex: 2,
+	display: 'none',
+	[mediaQueries.tablet]: {
+		display: 'block'
+	}
 })
+
 export default Wrapper

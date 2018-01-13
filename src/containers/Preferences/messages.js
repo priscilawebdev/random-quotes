@@ -20,5 +20,21 @@ export default defineMessages({
 	'randomQuotes.containers.preferences.logout': {
 		id: 'randomQuotes.containers.preferences.logout',
 		defaultMessage: 'Logout'
+	},
+	'randomQuotes.containers.preferences.author': {
+		id: 'randomQuotes.containers.preferences.author',
+		defaultMessage: '“{author}”'
+	},
+	'randomQuotes.containers.preferences.createFirstQuote': {
+		id: 'randomQuotes.containers.preferences.createFirstQuote',
+		defaultMessage: 'Create your first quote'
+	},
+	'randomQuotes.containers.preferences.addFirstBackgrounds': {
+		id: 'randomQuotes.containers.preferences.addFirstBackgrounds',
+		defaultMessage: 'Add your first Background'
+	},
+	'randomQuotes.containers.preferences.by': {
+		id: 'randomQuotes.containers.preferences.by',
+		defaultMessage: 'By {who}'
 	}
 })

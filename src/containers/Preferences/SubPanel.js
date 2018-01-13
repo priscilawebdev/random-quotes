@@ -11,7 +11,6 @@ import Content from './Content'
 import Grid from './SubPanelStyles'
 
 class Preferences extends Component {
-
 	static propTypes = {
 		handleRemoveQuote: PropTypes.func.isRequired,
 		handleRemoveBackground: PropTypes.func.isRequired,

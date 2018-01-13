@@ -1,5 +1,6 @@
 import { select, all, takeEvery, put, take } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
+import { actions as actionsMessages } from 'reducers/messages'
 import { actions } from 'reducers/storage'
 import reduxSagaFirebase from '../api'
 
@@ -12,8 +13,8 @@ function* sendFile({ path }) {
 		// Wait for upload to complete
 		yield task
 		yield put(actions.sendFileSuccess(task.snapshot.downloadURL))
-	} catch (err) {
-		console.log(err)
+	} catch (error) {
+		yield put(actionsMessages.emitNotification('error', error.message))
 	}
 }
 

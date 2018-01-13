@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import TextField from 'material-ui/TextField'
+import Wrapper from './indexStyles'
 
 const TextInput = ({ input, label, meta: { touched, error }, ...custom }) => (
-	<TextField
+	<Wrapper
 		hintText={label}
 		floatingLabelText={label}
 		errorText={touched && error}

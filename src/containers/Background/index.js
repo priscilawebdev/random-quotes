@@ -5,26 +5,33 @@ import { actions } from 'reducers/backgrounds'
 import Wrapper from './indexStyles'
 
 class Background extends Component {
-
 	static propTypes = {
+		background: PropTypes.object,
 		handleUpdate: PropTypes.func.isRequired,
 		children: PropTypes.node.isRequired,
 		backgrounds: PropTypes.array.isRequired,
-		background: PropTypes.object
+		date: PropTypes.string.isRequired
 	}
 
 	componentDidMount() {
-		this.getBackground()
+		const { background } = this.props
+		if (Object.keys(background).length === 0) {
+			this.getBackground()
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.date !== this.props.date) {
+			this.getBackground()
+		}
 	}
 
 	getBackground() {
-		const { backgrounds, background } = this.props
-		if (Object.keys(background).length === 0) {
-			const sortBackgrounds = backgrounds.sort((a, b) => a.vcount - b.vcount) // Sort backgrounds according to vcount (number of visualizations)
-			const slicedBackgrounds = sortBackgrounds.slice(0, 5) // get the first 5 backgrounds
-			const chosenBackground = slicedBackgrounds[Math.floor(Math.random() * slicedBackgrounds.length)] // return the randomly chosen background
-			this.handleUpdateBackground({ ...chosenBackground, vcount: chosenBackground.vcount + 1 })
-		}
+		const { backgrounds } = this.props
+		const sortBackgrounds = backgrounds.sort((a, b) => a.vcount - b.vcount) // Sort backgrounds according to vcount (number of visualizations)
+		const slicedBackgrounds = sortBackgrounds.slice(0, 5) // get the first 5 backgrounds
+		const chosenBackground = slicedBackgrounds[Math.floor(Math.random() * slicedBackgrounds.length)] // return the randomly chosen background
+		this.handleUpdateBackground({ ...chosenBackground, vcount: chosenBackground.vcount + 1 })
 	}
 
 	handleUpdateBackground(modifiedBackground) {

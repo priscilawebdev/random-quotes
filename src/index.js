@@ -25,7 +25,6 @@ const render = () => {
 	)
 }
 
-
 if (module.hot) {
 	module.hot.accept('./containers/App', () => {
 		ReactDOM.unmountComponentAtNode(root)
@@ -33,16 +32,15 @@ if (module.hot) {
 	})
 }
 
-
 // Chunked polyfill for browsers without Intl support
 if (!window.Intl) {
 	(new Promise((resolve) => {
 		resolve(import('intl'))
 	}))
-	.then(() => render())
-	.catch((err) => {
-		throw err
-	})
+		.then(() => render())
+		.catch((err) => {
+			throw err
+		})
 } else {
 	render()
 }

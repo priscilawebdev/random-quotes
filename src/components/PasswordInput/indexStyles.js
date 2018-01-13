@@ -6,26 +6,24 @@ const PasswordWrapper = glamorous.div({
 	position: 'relative'
 })
 
-const Wrapper = glamorous.div({
-	height: '100%',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'center',
-	alignContent: 'center',
-	background: '#FFFFFF'
-})
-
 const CheckBoxField = glamorous(props => (
-	<Checkbox {...props} />
+	<Checkbox
+		iconStyle={{
+			fill: 'rgba(0, 0, 0, 0.22)',
+			left: 0,
+			marginRight: 0
+		}}
+		{...props}
+	/>
 ))({
 	position: 'absolute !important',
-	top: 30,
 	right: 0,
+	top: 34,
+	marginRight: 0,
 	width: 'auto !important'
 })
 
 export {
 	PasswordWrapper,
-	Wrapper,
 	CheckBoxField
 }

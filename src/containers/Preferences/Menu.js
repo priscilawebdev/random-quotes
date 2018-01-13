@@ -4,25 +4,25 @@ import PropTypes from 'prop-types'
 import { UL, LI } from './MenuStyles'
 import messages from './messages'
 
-const Menu = ({ intl, onShow }) => (
+const Menu = ({ intl, onSetCategory }) => (
 	<UL>
 		<LI
 			primaryText={intl.formatMessage(messages['randomQuotes.containers.preferences.general'])}
-			onClick={() => onShow('general')}
+			onClick={() => onSetCategory('general')}
 		/>
 		<LI
 			primaryText={intl.formatMessage(messages['randomQuotes.containers.preferences.photos'])}
-			onClick={() => onShow('photos')}
+			onClick={() => onSetCategory('photos')}
 		/>
 		<LI
 			primaryText={intl.formatMessage(messages['randomQuotes.containers.preferences.quotes'])}
-			onClick={() => onShow('quotes')}
+			onClick={() => onSetCategory('quotes')}
 		/>
 	</UL>
 )
 
 Menu.propTypes = {
-	onShow: PropTypes.func.isRequired,
+	onSetCategory: PropTypes.func.isRequired,
 	intl: intlShape
 }
 

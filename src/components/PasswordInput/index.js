@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import { Field } from 'redux-form'
 import Visibility from 'material-ui/svg-icons/action/visibility'
@@ -8,15 +9,15 @@ import messages from './messages'
 import { PasswordWrapper, CheckBoxField } from './indexStyles'
 
 class PasswordInput extends Component {
-
 	static propTypes = {
-		intl: intlShape
+		intl: intlShape,
+		style: PropTypes.object
 	}
 
 	constructor() {
 		super()
 		this.handleSetShowPassword = ::this.handleSetShowPassword
-		this.state = { showPassword: false }
+		this.state = { showPassword: false, newVal: undefined }
 	}
 
 	handleSetShowPassword() {
@@ -24,7 +25,7 @@ class PasswordInput extends Component {
 	}
 
 	render() {
-		const { intl } = this.props
+		const { intl, style } = this.props
 		const { showPassword } = this.state
 		return (
 			<PasswordWrapper>
@@ -33,13 +34,13 @@ class PasswordInput extends Component {
 					component={TextInput}
 					type={showPassword ? 'text' : 'password'}
 					label={intl.formatMessage(messages['randomQuotes.components.passwordInput.password'])}
+					style={style}
 					fullWidth
 				/>
 				<CheckBoxField
 					name='show'
 					type='checkbox'
 					onCheck={this.handleSetShowPassword}
-					iconStyle={{ fill: 'rgba(0, 0, 0, 0.22)', marginRight: 0 }}
 					checkedIcon={<Visibility />}
 					uncheckedIcon={<VisibilityOff />}
 				/>

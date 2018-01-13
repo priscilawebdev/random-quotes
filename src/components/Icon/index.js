@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Wrapper, Table, TableCell } from './indexStyles'
+import Wrapper from './indexStyles'
 
 const iconNames = [
 	'garbage',
@@ -17,26 +17,36 @@ export const icons = iconNames.reduce((acc, curr) => ({
 	[curr]: require(`../Icon/img/${curr}.svg`) // eslint-disable-line
 }), {})
 
+const cursors = {
+	default: 'default',
+	pointer: 'pointer'
+}
+
 const Icon = ({
+	className = '',
 	name,
 	sm,
 	md,
 	lg,
 	customSize,
 	rotate45 = false,
-	onClick
+	onClick,
+	cursor
 } = {}) => (
-	<Wrapper onClick={onClick}>
-		<Table>
-			<TableCell {...{ sm, md, lg, customSize, rotate45, name }}>
-				<img src={icons[name]} alt={icons[name]} />
-			</TableCell>
-		</Table>
+	<Wrapper
+		className={className}
+		onClick={onClick}
+		cursor={cursors[cursor]}
+		{...{ sm, md, lg, customSize, rotate45, name }}
+	>
+		<img src={icons[name]} alt={icons[name]} height='100%' width='100%' />
 	</Wrapper>
 )
 
 Icon.propTypes = {
+	className: PropTypes.string,
 	name: PropTypes.oneOf(iconNames).isRequired,
+	cursor: PropTypes.string,
 	onClick: PropTypes.func,
 	sm: PropTypes.bool,
 	md: PropTypes.bool,

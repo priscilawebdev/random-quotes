@@ -1,6 +1,7 @@
 const initialState = {
 	list: [],
-	background: {}
+	background: {},
+	loading: false
 }
 
 export default function reducer(state = initialState, { type, backgrounds, background }) {
@@ -61,6 +62,9 @@ export const actions = {
 	addBackground: background => ({
 		type: actions.BACKGROUNDS.ADD.REQUEST,
 		background
+	}),
+	addBackgroundSuccess: () => ({
+		type: actions.BACKGROUNDS.ADD.SUCCESS
 	}),
 	removeBackground: id => ({
 		type: actions.BACKGROUNDS.REMOVE.REQUEST,

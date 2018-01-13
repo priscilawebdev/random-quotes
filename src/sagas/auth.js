@@ -1,41 +1,39 @@
 import { call, fork, put, take, takeEvery, all } from 'redux-saga/effects'
+import { actions as actionsMessages } from 'reducers/messages'
 import { actions } from 'reducers/auth'
 import reduxSagaFirebase from '../api'
 
-function* loginSaga({ credentials: { email, password } }) {
+function* signIn({ credentials: { email, password } }) {
 	try {
 		const data = yield call(reduxSagaFirebase.auth.signInWithEmailAndPassword, email, password)
-		yield put(actions.loginSuccess(data))
+		yield put(actions.signInSuccess(data))
 	} catch (error) {
-		console.log('error', error)
-		yield put(actions.loginFailure(error))
+		yield put(actionsMessages.emitNotification('error', error.message))
 	}
 }
 
-function* logoutSaga() {
+function* signOut() {
 	try {
 		const data = yield call(reduxSagaFirebase.auth.signOut)
-		yield put(actions.loginSuccess(data))
+		yield put(actions.signOutSuccess(data))
 	} catch (error) {
-		yield put(actions.loginFailure(error))
+		yield put(actionsMessages.emitNotification('error', error.message))
 	}
 }
 
-function* syncUserSaga() {
+function* syncUser() {
 	const channel = yield call(reduxSagaFirebase.auth.channel)
-
 	while (true) {
 		const { user } = yield take(channel)
-
 		if (user) yield put(actions.syncUser(user))
 		else yield put(actions.syncUser(null))
 	}
 }
 
 export default function* rootSaga() {
-	yield fork(syncUserSaga)
+	yield fork(syncUser)
 	yield all([
-		takeEvery(actions.LOGIN.REQUEST, loginSaga),
-		takeEvery(actions.LOGOUT.REQUEST, logoutSaga)
+		takeEvery(actions.SIGN_IN.REQUEST, signIn),
+		takeEvery(actions.SIGN_OUT.REQUEST, signOut)
 	])
 }

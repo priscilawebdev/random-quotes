@@ -1,44 +1,22 @@
 const initialState = {
-	loading: false,
-	authenticated: false,
-	user: null
+	registering: false,
+	confirmedEmail: false,
+	displayName: null
 }
 
-export default function reducer(state = initialState, { type, user }) {
+export default function reducer(state = initialState, { type, values }) {
 	switch (type) {
-		case actions.LOGIN.REQUEST:
-		case actions.LOGOUT.REQUEST:
+		case actions.SIGN_UP.ADD.REQUEST:
 			return {
 				...state,
-				loading: true
+				displayName: `${values.firstName} ${values.lastName}`,
+				registering: true
 			}
-		case actions.LOGIN.SUCCESS:
+		case actions.SIGN_UP.ADD.FAILURE:
+		case actions.SIGN_UP.ADD.SUCCESS:
 			return {
 				...state,
-				loading: false,
-				authenticated: true
-			}
-		case actions.LOGIN.FAILURE:
-			return {
-				...state,
-				loading: false
-			}
-		case actions.LOGOUT.SUCCESS:
-			return {
-				...state,
-				loading: false,
-				authenticated: false
-			}
-		case actions.LOGOUT.FAILURE:
-			return {
-				...state,
-				loading: false
-			}
-		case actions.SYNC_USER:
-			return {
-				...state,
-				authenticated: user != null,
-				user
+				registering: false
 			}
 		default:
 			return state
@@ -46,28 +24,30 @@ export default function reducer(state = initialState, { type, user }) {
 }
 
 export const actions = {
-	REGISTER: {
-		REQUEST: 'random-quotes/register/REGISTER.REQUEST',
-		SUCCESS: 'random-quotes/register/REGISTER.SUCCESS',
-		FAILURE: 'random-quotes/register/REGISTER.FAILURE'
+	SIGN_UP: {
+		UPDATE: {
+			REQUEST: 'SIGN_UP.UPDATE.REQUEST',
+			SUCCESS: 'SIGN_UP.UPDATE.SUCCESS',
+			FAILURE: 'SIGN_UP.UPDATE.FAILURE'
+		},
+		ADD: {
+			REQUEST: 'SIGN_UP.ADD.REQUEST',
+			SUCCESS: 'SIGN_UP.ADD.SUCCESS',
+			FAILURE: 'SIGN_UP.ADD.FAILURE'
+		}
 	},
-	login: credentials => ({
-		type: actions.LOGIN.REQUEST,
-		credentials
+	signUp: values => ({
+		type: actions.SIGN_UP.ADD.REQUEST,
+		values
 	}),
-	loginSuccess: credential => ({
-		type: actions.LOGIN.SUCCESS,
-		credential
+	signUpSuccess: () => ({
+		type: actions.SIGN_UP.ADD.SUCCESS
 	}),
-	loginFailure: error => ({
-		type: actions.LOGIN.FAILURE,
-		error
+	signUpFailure: () => ({
+		type: actions.SIGN_UP.ADD.FAILURE
 	}),
-	logout: () => ({
-		type: actions.LOGOUT.REQUEST
-	}),
-	syncUser: user => ({
-		type: actions.SYNC_USER,
-		user
+	update: values => ({
+		type: actions.SIGN_UP.UPDATE.REQUEST,
+		values
 	})
 }

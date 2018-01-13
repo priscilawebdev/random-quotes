@@ -1,3 +1,4 @@
+import React from 'react'
 import glamorous from 'glamorous'
 import { List, ListItem } from 'material-ui/List'
 import { white } from 'material-ui/styles/colors'
@@ -9,8 +10,12 @@ const UL = glamorous(List)({
 	height: '100%'
 })
 
-const LI = glamorous(ListItem)({
-	color: `${white}!important`,
+const LI = glamorous(props => (
+	<ListItem
+		style={{ color: white }}
+		{...props}
+	/>
+))({
 	':hover': {
 		opacity: 0.8
 	}

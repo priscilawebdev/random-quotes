@@ -9,7 +9,10 @@ const Author = glamorous.span(authorClassName, {
 	left: 0,
 	opacity: 0,
 	transition: 'all .35s ease',
-	cursor: 'pointer'
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	lineHeight: '15px'
 })
 Author.className = authorClassName
 
@@ -25,16 +28,6 @@ const Description = glamorous.span(descriptionClassName, {
 })
 Description.className = descriptionClassName
 
-const wrapperClassName = 'quoteWrapper'
-const Wrapper = glamorous.div(wrapperClassName, {
-	position: 'absolute',
-	bottom: 20,
-	width: '50%',
-	transform: 'translateX(50%)',
-	left: 0
-})
-Wrapper.className = wrapperClassName
-
 const Name = glamorous.span({
 	fontSize: '1em',
 	textTransform: 'capitalize',
@@ -42,36 +35,24 @@ const Name = glamorous.span({
 	cursor: 'text'
 })
 
-const Inner = glamorous.div({
+const P = glamorous.p({
 	position: 'relative',
-	textAlign: 'center',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	minHeight: 57,
-	paddingBottom: 10,
-	cursor: 'auto',
+	margin: 0,
+	zIndex: 1,
 	':hover': {
 		[`& .${Author.className}`]: {
 			opacity: 1,
-			transform: 'translateY(15px)'
+			transform: 'translateY(10px)'
 		},
 		[`& .${Description.className}`]: {
-			transform: 'translateY(-15px)'
+			transform: 'translateY(-10px)'
 		}
 	}
-})
-
-const P = glamorous.p({
-	position: 'relative',
-	margin: 0
 })
 
 export {
 	Author,
 	Description,
 	Name,
-	Inner,
-	Wrapper,
 	P
 }

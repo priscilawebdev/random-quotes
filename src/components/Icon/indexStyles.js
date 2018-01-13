@@ -3,25 +3,17 @@ import glamorous from 'glamorous'
 const Wrapper = glamorous.span({
 	display: 'inline-block',
 	verticalAlign: 'middle',
-})
-
-const Table = glamorous.span({
-	height: '100%',
-	width: '100%',
-	display: 'table'
-})
-
-const TableCell = glamorous.span(({ sm, md, lg, customSize, rotate45, name }) => ({
-	display: 'table-cell',
-	verticalAlign: 'middle',
-	transition: 'all .3s ease-in-out',
-	transform: rotate45 ? 'rotate(45deg) scale(1.1)' : 'none',
-	opacity: name === 'settings' && !rotate45 ? 0.5 : 1,
+	transition: 'transform .15s linear',
 	':hover': {
 		opacity: 1
-	},
-	...getSize(sm, md, lg, customSize),
+	}
+}, ({ cursor, sm, md, lg, customSize, rotate45, name }) => ({
+	cursor,
+	transform: rotate45 ? 'rotate(45deg) scale(1.1)' : 'none',
+	opacity: name === 'settings' && !rotate45 ? 0.5 : 1,
+	...getSize(sm, md, lg, customSize)
 }))
+
 
 const getSize = (sm, md, lg, customSize) => {
 	let result = { width: '100%', height: '100%' }
@@ -32,8 +24,4 @@ const getSize = (sm, md, lg, customSize) => {
 	return result
 }
 
-export {
-	Wrapper,
-	Table,
-	TableCell
-}
+export default Wrapper

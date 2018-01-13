@@ -15,13 +15,12 @@ const Account = glamorous(GridList)({
 		content: `''`, // eslint-disable-line
 		width: '100%',
 		height: '100%',
-		backgroundColor: `${white}`,
+		backgroundColor: white,
 		borderRadius: 2,
 		opacity: 0.2,
 		position: 'absolute',
 		top: 0,
-		left: 0,
-		zIndex: -1
+		left: 0
 	}
 })
 
@@ -36,6 +35,7 @@ const GridItem = glamorous(({
 			display: inline ? 'inline-flex' : 'flex',
 			justifyContent: justifyMap[justify],
 			alignItems: alignMap[align],
+			zIndex: 1
 		}}
 		{...props}
 	/>
@@ -54,14 +54,15 @@ const User = glamorous.div({
 })
 
 const Action = glamorous.div({
-	color: `${white}`,
+	color: white,
+	cursor: 'pointer',
 	':hover': {
 		opacity: 0.8
 	}
 })
 
 const Info = glamorous.div({
-	color: `${white}`,
+	color: white,
 	marginLeft: 8,
 	'& p': {
 		margin: 0,

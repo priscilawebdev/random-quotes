@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import { Error, HR, Button, Input } from './indexStyles'
 
 class FileField extends Component {
-	constructor(props) {
-		super(props)
+	constructor() {
+		super()
 		this.onChange = ::this.onChange
 		this.state = { imagePreviewUrl: '' }
 	}

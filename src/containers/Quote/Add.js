@@ -9,8 +9,6 @@ import Button from 'components/Button'
 import messages from './messages'
 import validate from './validate'
 
-const required = value => (value ? undefined : 'Required')
-
 const handleReset = (result, dispatch) => dispatch(resetOnSubmit('AddQuote'))
 
 const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, onRequestClose }) => (
@@ -30,14 +28,12 @@ const renderAdd = ({ intl, handleSubmit, submitting, onAdd, openDialog, reset, o
 				name='description'
 				component={TextInput}
 				label={intl.formatMessage(messages['randomQuotes.containers.quote.description'])}
-				validate={[required]}
 				fullWidth
 			/>
 			<Field
 				name='author'
 				component={TextInput}
 				label={intl.formatMessage(messages['randomQuotes.containers.quote.author'])}
-				validate={[required]}
 				fullWidth
 			/>
 			<GridList cols={2} cellHeight='auto'>
